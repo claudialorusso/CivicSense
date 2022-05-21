@@ -1,5 +1,8 @@
-email_t
-codice
-npersone
-nomi
-password
+table_name: team
+#columns: 5
+
+codice:VARCHAR PRIMARY 40
+email_t:VARCHAR 30
+npersone:INT UNSIGNED 255
+nomi:VARCHAR 30
+password:VARCHAR 30

@@ -1,12 +1,16 @@
-tipo (numerico)
-gravita
-id
-datainv
-orainv
-via
-foto
-email
-tipo
-latitudine
-longitudine
-descrizione
+id 20 INT UNSIGNED PRIMARY
+tipo 1 (da 1 a 4) TINYINT UNSIGNED (anche se lo acquisisce come text e non come number...)
+gravita 15 VARCHAR (puo essere null)
+datainv DATE
+orainv TIME
+via 40 VARCHAR
+foto 150 VARCHAR
+email 40 VARCHAR
+latitudine 20 VARCHAR
+longitudine 20 VARCHAR
+descrizione 200 VARCHAR
+stato 10 VARCHAR
+team 20 VARCHAR (puo essere null)
+
+month 2 TINYINT
+
