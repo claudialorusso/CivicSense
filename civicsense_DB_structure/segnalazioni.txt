@@ -12,5 +12,5 @@ descrizione 200 VARCHAR
 stato 10 VARCHAR
 team 20 VARCHAR (puo essere null)
 
-month 2 TINYINT
+month 2 TINYINT UNSIGNED
 
