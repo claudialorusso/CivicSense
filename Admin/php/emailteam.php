@@ -1,6 +1,6 @@
 <?php
-require ('C:\xampp\htdocs\Ingegneria\Admin\phpmailer\class.phpmailer.php');
-include('C:\xampp\htdocs\Ingegneria\Admin\phpmailer\class.smtp.php');
+require ('D:\xampp\htdocs\CivicSense\Admin\phpmailer\class.phpmailer.php');
+include('D:\xampp\htdocs\CivicSense\Admin\phpmailer\class.smtp.php');
 $conn = mysqli_connect ("localhost", "root", "","civicsense") or die ("Connessione non riuscita"); 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : null;
