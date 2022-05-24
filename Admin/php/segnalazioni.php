@@ -1,16 +1,16 @@
 <?php
-$conn = mysql_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
+$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
 
-mysql_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
+mysqli_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
 
 
 
-  $quer = mysql_query ("SELECT * FROM segnalazioni ");
+  $quer = mysqli_query ("SELECT * FROM segnalazioni ");
   
 
 
 
-    while($row = mysql_fetch_assoc($quer)) {
+    while($row = mysqli_fetch_assoc($quer)) {
         echo "
     <tr>
      
@@ -32,7 +32,7 @@ mysql_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al 
 
                     <td>".$row['team']."<br></td>
 
-                   <td>".$row['gravità']."<br></td>
+                   <td>".$row['gravitï¿½']."<br></td>
                
           </tr> ";
     }

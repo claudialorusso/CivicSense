@@ -87,21 +87,21 @@
     else
     {
       //Connessione Database
-     $conn = mysql_connect ("localhost", "root", "") or die ("Connessione non riuscita"); #connessione a mysql, la pass non la ho xk è scaricato automaticamente
+     $conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); #connessione a mysql, la pass non la ho xk è scaricato automaticamente
 
-mysql_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
+mysqli_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
 
 
 
       $sql = "SELECT * FROM team ";
      
-$result = mysql_query($sql);
+$result = mysqli_query($sql);
     
 
 
-if (mysql_num_rows($result) > 0) {
+if (mysqli_num_rows($result) > 0) {
 	
-    while($row = mysql_fetch_assoc($result))
+    while($row = mysqli_fetch_assoc($result))
         {
           if($password != $row["password"] || $email != $row["email_t"])
           {

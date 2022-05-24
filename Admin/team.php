@@ -283,7 +283,7 @@ if ($email && $nomi && $numeri && $pass !== null) {
 			('$email','$numeri', '$nomi','$pass')";
 
 
-$result = mysql_query($toinsert);	
+$result = mysqli_query($toinsert);	
 
 if($result){
 	echo("<b><br><p> <center> <font color=black font face='Courier'> Inserimento avvenuto correttamente! Ricarica la pagina per vedere la tabella aggiornata!</p></b></center>");

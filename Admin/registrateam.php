@@ -60,8 +60,8 @@
 	
 <?php
 
-$conn = mysql_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
-mysql_select_db ("civicsense") or die ("DataBase non trovato"); 
+$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
+mysqli_select_db ("civicsense") or die ("DataBase non trovato"); 
 
 
 $email = (isset($_POST['email'])) ? $_POST['email'] : null;
@@ -73,7 +73,7 @@ if ($email && $pass !== null) {
 
  $query = ("UPDATE team SET password = '$pass' WHERE email_t = '$email'");
 
-$result = mysql_query($query);	
+$result = mysqli_query($query);	
 
 if($query){
 	echo("<br><b><br><p> <center> <font color=white font face='Courier'> Password registrata! Clicca su <a href='login.php'> Login </a> per accedere. </b></center></p><br><br> ");

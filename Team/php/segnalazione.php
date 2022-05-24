@@ -1,7 +1,7 @@
 <?php
-$conn = mysql_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
+$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
 
-mysql_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
+mysqli_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
 
 if(isset($_SESSION['idT'])){
 	$upload_path = '../Admin/img/';
@@ -11,10 +11,10 @@ $team = (isset($_POST['team'])) ? $_POST['team'] : null;
 
 
 
-    $quer = mysql_query ("SELECT * FROM segnalazioni WHERE stato  <> 'Risolto' AND team = ".$_SESSION['idT'] );
+    $quer = mysqli_query ("SELECT * FROM segnalazioni WHERE stato  <> 'Risolto' AND team = ".$_SESSION['idT'] );
   
 
-    while($row = mysql_fetch_assoc($quer)) {
+    while($row = mysqli_fetch_assoc($quer)) {
         echo "
     <tr>
      

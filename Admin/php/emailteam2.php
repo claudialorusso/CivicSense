@@ -1,9 +1,9 @@
 
 <?php
 
-$conn = mysql_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
+$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
 
-mysql_select_db ("civicsense") or die ("DataBase non trovato"); 
+mysqli_select_db ("civicsense") or die ("DataBase non trovato"); 
 
 
 $id = $_POST['id'];
@@ -17,7 +17,7 @@ if ($id && $team !== null) {
  $query = ("SELECT email_t FROM team WHERE codice = '$team'"); 
 
 
-$result = mysql_query($query);	
+$result = mysqli_query($query);	
 
 
 if ($result){
