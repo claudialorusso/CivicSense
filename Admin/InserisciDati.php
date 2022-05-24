@@ -1,5 +1,5 @@
 <?php
-	$conn = new MySQLi("localhost","root","","civicsense");
+$conn = new MySQLi("localhost", "root", "", "civicsense");
 
 	$upload_path = 'jpeg/';
 	
