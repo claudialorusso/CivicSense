@@ -35,10 +35,10 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 				  $mail->Mailer = "smtp";
 				  $mail->Username   = "civicsense18@gmail.com";     // DOMINIO username
 				  $mail->Password   = "c1v1csense2019";            // DOMINIO password
-				  $mail->AddAddress("$_SESSION['email']");
+				  $mail->AddAddress($_SESSION['email']);
 				  $mail->SetFrom("civicsense18@gmail.com");
 				  $mail->Subject = 'Nuova Segnalazione';
-				  $mail->Body = "Salve team$row['team'], ci è arrivata una nuova segnalazione e vi affido il compito di risoverla"; //Messaggio da inviare
+				  $mail->Body = "Salve team" . $row['team'] . ", ci è arrivata una nuova segnalazione e vi affido il compito di risoverla"; //Messaggio da inviare
 				  $mail->Send();
 				  echo "Message Sent OK";
 				} catch (phpmailerException $e) {
@@ -62,13 +62,13 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 				  $mail->Port       = 465;   				// inserisci la porta smtp per il server DOMINIO
 				  $mail->SMTPKeepAlive = true;
 				  $mail->Mailer = "smtp";
-				  $mail->Username   = "$_SESSION['email']";  			// DOMINIO username
-				  $mail->Password   = "$_SESSION['pass']";            // DOMINIO password
+				  $mail->Username   = $_SESSION['email'];  			// DOMINIO username
+				  $mail->Password   = $_SESSION['pass'];            // DOMINIO password
 				  $mail->AddAddress('civicsense18@gmail.com');//ente
-				  $mail->AddAddress("$row['email']");//utente
-				  $mail->SetFrom("$_SESSION['email']");
+				  $mail->AddAddress($row['email']);//utente
+				  $mail->SetFrom($_SESSION['email']);
 				  $mail->Subject = "Segnalazione risolta";
-				  $mail->Body = "Il problema presente in $row['via'] è stata risolta"; //Messaggio da inviare
+				  $mail->Body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
 				  $mail->Send();
 				  echo "Message Sent OK";
 				} catch (phpmailerException $e) {
