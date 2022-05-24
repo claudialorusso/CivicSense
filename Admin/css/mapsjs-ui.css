@@ -116,7 +116,7 @@
   border-radius: 2em;
   color: #fff;
   padding: .4em;
-  -webkit-transform: translate3d(0, 1, 0);
+  -webkit-transform: translate3d(0ch, 1in, 0em); // @TODO CLAUDIA OR 0px, 1px, 0px OR 0ch, 1in, 0em (it was 0, 1, 0)
 }
 
 .H_rdo {
@@ -508,7 +508,7 @@
   margin-left: -.1em;
 }
 
-.H_disabled .H_pano_mm svg.H_icon, {
+.H_disabled .H_pano_mm svg.H_icon { // @TODO CLAUDIA there was an additional comma, I removed it
   fill: #ddd;
   stroke: #5A6166;
 }
