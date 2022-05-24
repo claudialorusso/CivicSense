@@ -185,7 +185,7 @@
   <i class="fas fa-table"></i>
 Assegna una segnalazione ad un team</div>
 
-	<form  method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE SEGNALAZIONE: <input type="text" name="id"><br><br></b>
 <b>SELEZIONA L'EMAIL DEL TEAM: </b> <select class="text" name="team"> 
 
@@ -198,8 +198,8 @@ $selezione = mysqli_query($conn,"SELECT email_t, codice FROM team") or die(mysql
 if($selezione){
 	while($array=mysqli_fetch_assoc($selezione))
 	{
-		$email = $array["email_t"];
-		$codice = $array["codice"];
+		$email = htmlspecialchars($array["email_t"]);
+		$codice = htmlspecialchars($array["codice"]);
 
 
 		//da qui c'è il menù a discesa riempito con i valori del database
@@ -211,7 +211,7 @@ if($selezione){
 ?>
 <input type="submit" name="submit" class="btn btn-primary btn-block" style="width:15%; margin-top:5%;">
 
-<?php include ("php/emailteam.php"); ?>
+<?php include("php/emailteam.php"); ?>
 </select>
 </form>  
 <br>
@@ -227,11 +227,11 @@ if($selezione){
   <i class="fas fa-table"></i>
 Elimina un team</div>
 
-	<form  method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE TEAM DA ELIMINARE: <input type="text" name="cod"><br><br></b>
 <input type="submit" name="submit2" class="btn btn-primary btn-block" style="width:15%; margin-top:5%;">
   </form>
-<?php include ("php/cancellateam.php"); ?>
+<?php include("php/cancellateam.php"); ?>
 
 <br><br><br>
 
@@ -244,7 +244,7 @@ Elimina un team</div>
   <i class="fas fa-table"></i>
 Inserisci un nuoto team</div>
 
-<form  method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
+<form method="post" action ="team.php" style=" margin-top:5%; margin-left:5%">
 <b>E-MAIL TEAM:</b> <input type="email" name="email"><br><br>
 <b>NOMI E COGNOMI DEI COMPONENTI:</b> <input type="text" name="nomi"><br><br>
 <b>NUMERO DI COMPONENTI: </b> <input type="number" name="numero"><br><br>

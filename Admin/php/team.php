@@ -8,11 +8,11 @@ $sql = mysqli_query($conn,"SELECT * FROM team");
     while($row = mysqli_fetch_assoc($sql)) {
         echo "
 		<tr>
-                <td>".$row['codice']." </td>
+                <td>".htmlspecialchars($row['codice'])." </td>
                 
-                <td>".$row['email_t']."</td> 
+                <td>".htmlspecialchars($row['email_t'])."</td> 
                 
-              <td>".$row['nomi']."</td>
+              <td>".htmlspecialchars($row['nomi'])."</td>
                
           </tr> ";
     }

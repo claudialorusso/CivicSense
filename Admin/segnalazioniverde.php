@@ -112,7 +112,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown" >
 		   <a class="dropdown-item" href="segnalazionii.php"><center><b>INDICE SEGNALAZIONI</b></center></a>
-            <a class="dropdown-item" href="segnalazioniverde.php"style=" background-color:orange;"> <b> Segnalazione su aree verdi</b></a>
+            <a class="dropdown-item" href="segnalazioniverde.php" style=" background-color:orange;"> <b> Segnalazione su aree verdi</b></a>
             <a class="dropdown-item" href="segnalazionirifiuti.php">Rifiuti e pulizia stradale</a> 
 			<a class="dropdown-item" href="segnalazionistrade.php">Strade e marciapiedi</a>
             <a class="dropdown-item" href="segnalazionisemafori.php">Segnaletica e semafori</a> 
@@ -168,7 +168,7 @@
         if($result){
           while($row=mysqli_fetch_assoc($result)){
             echo "
-            var location = new google.maps.LatLng(".$row['latitudine'].",".$row['longitudine'].");
+            var location = new google.maps.LatLng(".htmlspecialchars($row['latitudine']).",".htmlspecialchars($row['longitudine']).");
             var marker = new google.maps.Marker({
               map: map,
               position: location
@@ -231,7 +231,7 @@
   <i class="fas fa-table"></i>
 Modifica gravità di una segnalazione</div>
 
-	<form  method="post" action ="segnalazioniverde.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="segnalazioniverde.php" style=" margin-top:5%; margin-left:5%">
 <b> CODICE SEGNALAZIONE DA MODIFICARE: </b> <input type="text" name="idt"><br><br>
 <b> INSERISCI LA GRAVITA' MODIFICATA: </b> <select class="text" name="gravit"> 
    
@@ -260,7 +260,7 @@ if ($idt && $grav !== null) {
 	$resultC = mysqli_query($conn,"SELECT * FROM segnalazioni WHERE tipo = '1'");
 	if($resultC){
 		$row = mysqli_fetch_assoc($resultC);
-		if($id == $row['id']){
+		if($idt == $row['id']){
 			$query = "UPDATE segnalazioni SET gravita = '$grav' WHERE id = '$idt'";
 
 			$result = mysqli_query($conn,$query);	
@@ -294,7 +294,7 @@ Statistiche annuali per le segnalazioni delle aree verdi</div>
 <div id="chartdiv"></div>
   <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
 
- <?php include ("php/graficoverde.php"); ?>
+ <?php include("php/graficoverde.php"); ?>
 
  <!-- FINE GRAFICO -->
 
@@ -318,17 +318,6 @@ Statistiche annuali per le segnalazioni delle aree verdi</div>
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
 
-	
-	
-	
-
-
-
-	
-	
-	
-	
-	
   </body>
 
 </html>

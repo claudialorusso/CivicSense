@@ -37,7 +37,7 @@ inserisci segnalazione
 
 </div>
 
-<form  method="post" action ="inserisci.php" style=" margin-top:5%; margin-left:5%;">
+<form method="post" action ="inserisci.php" style=" margin-top:5%; margin-left:5%;">
 <b>DATA INVIO: <input type="date" name="data"><br><br></b>
 <b> ORA INVIO: </b> <input type="time" name="ora"><br><br></b>
 <b> VIA (VIA NOMEVIA, N CIVICO, CAP, PROVINCIA (ES: PULSANO O TARANTO), TA, ITALIA: <input type="text" name="via"><br><br></b>

@@ -5,7 +5,7 @@ session_start();
 //classi per l'invio dell'email (PHPMailer 5.2)
 
 
-require ('phpmailer/class.phpmailer.php');
+require('phpmailer/class.phpmailer.php');
 include('phpmailer/class.smtp.php');
 $conn = new mysqli ("localhost", "root", "","civicsense") or die ("Connessione non riuscita"); 
 

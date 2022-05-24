@@ -21,10 +21,7 @@ $result = mysqli_query($query);
 
 
 if ($result){
-
-
-
-echo('<a href="mailto: '.$result.'"><center> Clicca qui per mandare un avviso al team. </center></a>');
+echo('<a href="mailto: '.htmlspecialchars($result, ENT_NOQUOTES).'"><center> Clicca qui per mandare un avviso al team. </center></a>');
 
 }
 }

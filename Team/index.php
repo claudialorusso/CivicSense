@@ -113,7 +113,7 @@
         if($result){
           while($row=mysqli_fetch_assoc($result)){
             echo "
-            var location = new google.maps.LatLng(".$row['latitudine'].",".$row['longitudine'].");
+            var location = new google.maps.LatLng(".htmlspecialchars($row['latitudine']).",".htmlspecialchars($row['longitudine']).");
             var marker = new google.maps.Marker({
               map: map,
               position: location
@@ -197,7 +197,7 @@
   <i class="fas fa-table"></i>
 Modifica stato di una segnalazione</div>
 
-	<form  method="post" action ="modifiche.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="modifiche.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE SEGNALAZIONE DA MODIFICARE: <input type="text" name="id"><br><br></b>
 <b> INSERISCI LO STATO MODIFICATO: </b> <select class="text" name="stato"> 
    

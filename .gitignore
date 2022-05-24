@@ -1,3 +1,6 @@
 *.vs/
 *.idea/
 *.gitignore
+/vendor/
+/vendor/phpmailer/
+/vendor/composer/

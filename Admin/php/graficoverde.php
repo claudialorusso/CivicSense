@@ -12,10 +12,7 @@ var chart = AmCharts.makeChart("chartdiv", {
   "sequencedAnimation": false,
   "dataProvider": [ {
     "month": "GEN",
-    "value1": 
-	
-	
-	
+    "value1":
 	<?php 
 	
 $conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
@@ -30,7 +27,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -62,7 +59,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -88,7 +85,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -113,7 +110,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -138,7 +135,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -163,7 +160,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -188,7 +185,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -213,7 +210,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -238,7 +235,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -263,7 +260,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -288,7 +285,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -313,7 +310,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 "; }}
 	?> ,

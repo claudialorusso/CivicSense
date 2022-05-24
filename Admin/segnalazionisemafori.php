@@ -113,7 +113,7 @@
             <a class="dropdown-item" href="segnalazioniverde.php">Segnalazione su aree verdi</a>
             <a class="dropdown-item" href="segnalazionirifiuti.php">Rifiuti e pulizia stradale</a> 
 			<a class="dropdown-item" href="segnalazionistrade.php">Strade e marciapiedi</a>
-            <a class="dropdown-item" href="segnalazionisemafori.php"style=" background-color:orange;"> <b> Segnaletica e semafori</b></a> 
+            <a class="dropdown-item" href="segnalazionisemafori.php" style=" background-color:orange;"> <b> Segnaletica e semafori</b></a>
 			<a class="dropdown-item" href="segnalazioniilluminazione.php">Illuminazione pubblica</a> 
           </div>
         </li>
@@ -167,7 +167,7 @@
         if($result){
           while($row=mysqli_fetch_assoc($result)){
             echo "
-            var location = new google.maps.LatLng(".$row['latitudine'].",".$row['longitudine'].");
+            var location = new google.maps.LatLng(".htmlspecialchars($row['latitudine']).",".htmlspecialchars($row['longitudine']).");
             var marker = new google.maps.Marker({
               map: map,
               position: location
@@ -230,7 +230,7 @@
   <i class="fas fa-table"></i>
 Modifica gravità di una segnalazione</div>
 
-	<form  method="post" action ="segnalazionisemafori.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="segnalazionisemafori.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE CANCELLAZIONE DA MODIFICARE: <input type="text" name="idt"><br><br></b>
 <b> INSERISCI LA GRAVITA' MODIFICATA: </b> <select class="text" name="gravit"> 
    
@@ -257,7 +257,7 @@ if ($idt && $grav !== null) {
   $resultC = mysqli_query($conn,"SELECT * FROM segnalazioni WHERE tipo = '4'");
   if($resultC){
     $row = mysqli_fetch_assoc($resultC);
-    if($id == $row['id']){
+    if($idt == $row['id']){
       $query = "UPDATE segnalazioni SET gravita = '$grav' WHERE id = '$idt'";
 
       $result = mysqli_query($conn,$query); 
@@ -292,7 +292,7 @@ Statistiche annuali per le segnalazioni di semafori</div>
 <div id="chartdiv"></div>
   <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
 
- <?php include ("php/graficosemafori.php"); ?>
+ <?php include("php/graficosemafori.php"); ?>
 
  <!-- FINE GRAFICO -->
 
@@ -315,17 +315,6 @@ Statistiche annuali per le segnalazioni di semafori</div>
 
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
-
-	
-	
-	
-
-
-
-	
-	
-	
-	
 	
   </body>
 

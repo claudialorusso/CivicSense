@@ -30,7 +30,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -62,7 +62,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -88,7 +88,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -113,7 +113,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -138,7 +138,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -163,7 +163,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -188,7 +188,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -213,7 +213,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -238,7 +238,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -263,7 +263,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -288,7 +288,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 	"; }}
 	?> ,
@@ -313,7 +313,7 @@ if (mysqli_num_rows($quer) > 0) {
         echo   "
 	
 		       
-			  ".$row['cont']."  
+			  ".htmlspecialchars($row['cont'])."  
 
 "; }}
 	?> ,

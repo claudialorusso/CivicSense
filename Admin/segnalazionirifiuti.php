@@ -111,7 +111,7 @@
           <div class="dropdown-menu" aria-labelledby="pagesDropdown" >
 		   <a class="dropdown-item" href="segnalazionii.php"><center><b>INDICE SEGNALAZIONI</b></center></a>
             <a class="dropdown-item" href="segnalazioniverde.php">Segnalazione su aree verdi</a>
-            <a class="dropdown-item" href="segnalazionirifiuti.php"style=" background-color:orange;"> <b>Rifiuti e pulizia stradale</b></a> 
+            <a class="dropdown-item" href="segnalazionirifiuti.php" style=" background-color:orange;"> <b>Rifiuti e pulizia stradale</b></a>
 			<a class="dropdown-item" href="segnalazionistrade.php">Strade e marciapiedi</a>
             <a class="dropdown-item" href="segnalazionisemafori.php">Segnaletica e semafori</a> 
 			<a class="dropdown-item" href="segnalazioniilluminazione.php">Illuminazione pubblica</a> 
@@ -165,7 +165,7 @@
         if($result){
           while($row=mysqli_fetch_assoc($result)){
             echo "
-            var location = new google.maps.LatLng(".$row['latitudine'].",".$row['longitudine'].");
+            var location = new google.maps.LatLng(". htmlspecialchars($row['latitudine']).",".htmlspecialchars($row['longitudine']).");
             var marker = new google.maps.Marker({
               map: map,
               position: location
@@ -227,7 +227,7 @@
   <i class="fas fa-table"></i>
 Modifica gravità di una segnalazione</div>
 
-	<form  method="post" action ="segnalazionirifiuti.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="segnalazionirifiuti.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE CANCELLAZIONE DA MODIFICARE: <input type="text" name="idt"><br><br></b>
 <b> INSERISCI LA GRAVITA' MODIFICATA: </b> <select class="text" name="gravit"> 
    
@@ -254,7 +254,7 @@ if ($idt && $grav !== null) {
   $resultC = mysqli_query($conn,"SELECT * FROM segnalazioni WHERE tipo = '2'");
   if($resultC){
     $row = mysqli_fetch_assoc($resultC);
-    if($id == $row['id']){
+    if($idt == $row['id']){
       $query = "UPDATE segnalazioni SET gravita = '$grav' WHERE id = '$idt'";
 
       $result = mysqli_query($conn,$query); 
@@ -288,7 +288,7 @@ Statistiche annuali per le segnalazioni di rifiuti</div>
 <div id="chartdiv"></div>
   <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
 
- <?php include ("php/graficorifiuti.php"); ?>
+ <?php include("php/graficorifiuti.php"); ?>
 
  <!-- FINE GRAFICO -->
 

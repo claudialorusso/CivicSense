@@ -110,7 +110,7 @@
 		   <a class="dropdown-item" href="segnalazionii.php"><center><b>INDICE SEGNALAZIONI</b></center></a>
             <a class="dropdown-item" href="segnalazioniverde.php">Segnalazione su aree verdi</a>
             <a class="dropdown-item" href="segnalazionirifiuti.php">Rifiuti e pulizia stradale</a> 
-			<a class="dropdown-item" href="segnalazionistrade.php"style=" background-color:orange;"> <b>Strade e marciapiedi</a>
+			<a class="dropdown-item" href="segnalazionistrade.php" style=" background-color:orange;"> <b>Strade e marciapiedi</a>
             <a class="dropdown-item" href="segnalazionisemafori.php">Segnaletica e semafori</a> 
 			<a class="dropdown-item" href="segnalazioniilluminazione.php">Illuminazione pubblica</a> 
           </div>
@@ -164,7 +164,7 @@
         if($result){
           while($row=mysqli_fetch_assoc($result)){
             echo "
-            var location = new google.maps.LatLng(".$row['latitudine'].",".$row['longitudine'].");
+            var location = new google.maps.LatLng(".htmlspecialchars($row['latitudine']).",".htmlspecialchars($row['longitudine']).");
             var marker = new google.maps.Marker({
               map: map,
               position: location
@@ -225,7 +225,7 @@
   <i class="fas fa-table"></i>
 Modifica gravità di una segnalazione</div>
 
-	<form  method="post" action ="segnalazionistrade.php" style=" margin-top:5%; margin-left:5%">
+	<form method="post" action ="segnalazionistrade.php" style=" margin-top:5%; margin-left:5%">
 <b>CODICE CANCELLAZIONE DA MODIFICARE: <input type="text" name="idt"><br><br></b>
 <b> INSERISCI LA GRAVITA' MODIFICATA: </b> <select class="text" name="gravit"> 
    
@@ -287,7 +287,7 @@ Statistiche annuali per le segnalazioni di strade e marciapiedi</div>
 <div id="chartdiv"></div>
   <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
 
- <?php include ("php/graficostrade.php"); ?>
+ <?php include("php/graficostrade.php"); ?>
 
  <!-- FINE GRAFICO -->
 
