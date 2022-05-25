@@ -49,8 +49,13 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 		}
 		//da team a ente e utente
 		else if($row['stato']=="In risoluzione" && $stato=="Risolto"){
-			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = $id";
-			if($query){
+			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?";
+
+            $statement = $conn->prepare($sql);
+            $statement->bind_param('i', $idS);
+            $result = $statement->execute();
+
+            if($query){
 				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 				$mail = new PHPMailer(true);
 	

@@ -31,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $file_path = realpath($file_path);
             if (!$file_path) {
-                $err_message = "Percorso file non corretto"; //@fixme CLAUDIA
+                $err_message = "Percorso file non corretto";
             } else {
                 # I list all of the jpg files contained in "jpeg/"
                 $file_list = glob($upload_path . '*.jpg');
-                #array_push(@$file_list, glob($upload_path . '*.png')); //@fixme CLAUDIA I don't know if it's needed
+                #array_push(@$file_list, glob($upload_path . '*.png'));
                 #checks whether the image is real or not
                 $real = false;
                 foreach ($file_list as $filename) {
@@ -46,9 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 if ($real) {
                     $base_filename = basename($file_path);
-                    move_uploaded_file($_FILES['image']['tmp_name'], "'$upload_path' . '$base_filename'"); //@TODO CLAUDIA Check
-                    $sql = "INSERT INTO 'segnalazioni'('datainv', 'orainv', 'via', 'descrizione', 'foto', 'email','tipo','latitudine','longitudine') VALUES (CURRENT_DATE,CURRENT_TIME,'" . $via . "','" . $descrizione . "','{$img_name}','" . $email . "','" . $tipo . "'," . $lat . "," . $lng . ")";
-                    $result = mysqli_query($conn, $sql);
+                    move_uploaded_file($_FILES['image']['tmp_name'], "'$upload_path' . '$base_filename'");
+
+                    $sql = "INSERT INTO segnalazioni (datainv, orainv, via, descrizione, foto, email, tipo, latitudine, longitudine) VALUES (CURRENT_DATE,CURRENT_TIME, ?, ?, ?, ?, ?, ?, ?) ";
+
+                    $statement = $conn->prepare($sql);
+                    $statement->bind_param('ssssiss',  $via, $descr, $foto, $email, $tipo, $lat, $long);
+                    $result = $statement->execute();
+
                     if ($result) {
                         echo "Inserimento dei dati completato";
                     } else {
