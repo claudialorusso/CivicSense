@@ -12,7 +12,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 	$idS = $_POST['id'];
 	$stato = $_POST['stato'];
 	
-	$query = "SELECT * FROM segnalazioni WHERE id =$idS";
+	$query = "SELECT * FROM segnalazioni WHERE id =?";
 
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $idS);
@@ -22,7 +22,10 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 		//da ente a team
 		$row = mysqli_fetch_assoc($result);
 		if($row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
-			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = $idS"; //esegui l'aggiornamento
+			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+            $statement = $conn->prepare($sql);
+            $statement->bind_param('i', $idS);
+            $result = $statement->execute();
 			if($query){
 				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 				$mail = new PHPMailer(true);
