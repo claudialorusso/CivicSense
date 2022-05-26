@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
                     try {
                         $query1 = ("SELECT * FROM team WHERE codice = ?");
                         $statement = $conn->prepare($query1);
-                        $statement->bind_param('i', $team);
+                        $statement->bind_param('s', $team);
                         $result1 = $statement->execute();
                         #$result1 = mysqli_query($conn,$query1);
                         if ($result1) {
