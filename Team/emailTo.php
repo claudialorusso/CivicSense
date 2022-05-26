@@ -18,7 +18,7 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
     $query = "SELECT * FROM segnalazioni WHERE id = ?";
 
     $statement = $conn->prepare($query);
-    $statement->bind_param('i', $id);
+    $statement->bind_param('i', $idS);
     $result = $statement->execute();
 
     if ($result) {
@@ -31,7 +31,6 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
             $statement->bind_param('i', $idS);
             $result1 = $statement->execute();
 
-            #$result1 = $conn->query($sql);
 
             if ($result1) {
                 echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
