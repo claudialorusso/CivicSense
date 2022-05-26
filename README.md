@@ -1,4 +1,4 @@
-# # CivicSense
+# CivicSense
 
 ## System's Specifications
 
