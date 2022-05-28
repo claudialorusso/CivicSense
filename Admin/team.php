@@ -208,11 +208,7 @@
 
 
                                     //da qui c'è il menù a discesa riempito con i valori del database
-                                    echo "
-
-		<option value='$codice'>$email</option>
-
-	";
+                                    echo " <option value='$codice'>$email</option> ";
                                 }
                             }
                             ?>
@@ -283,13 +279,9 @@
                         if ($email && $nomi && $numeri && $pass !== null) {
 #inserisco i valori salvati dal form nella query di inserimento
 
-                            $toinsert = "INSERT INTO team
-			(email_t, npersone, nomi, password)
-			VALUES
-			('$email','$numeri', '$nomi','$pass')";
+                            $toinsert = "INSERT INTO team (email_t, n_persone, nomi, password) VALUES ('$email','$numeri', '$nomi','$pass')";
 
-
-                            $result = mysqli_query($toinsert);
+                            $result = mysqli_query($conn, $toinsert);
 
                             if ($result) {
                                 echo("<b><br><p> <center> <font color=black font face='Courier'> Inserimento avvenuto correttamente! Ricarica la pagina per vedere la tabella aggiornata!</p></b></center>");

@@ -1,12 +1,11 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
 
-mysqli_select_db("civicsense") or die ("DataBase non trovato"); #connessione al db
+mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato"); #connessione al db
 
 
 $upload_path = 'img/';
 $quer = mysqli_query($conn, "SELECT * FROM segnalazioni WHERE tipo = '3' ");
-
 
 
 while ($row = mysqli_fetch_assoc($quer)) {

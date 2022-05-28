@@ -27,7 +27,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     if (!$result) {
         echo 'Email e/o password non corrette!';
     } else {
-        if ($password === $result['password']){ //password_verify(($password === $result['PASSWORD'])) TODO uses hash
+        if ($password === $result['password']) { //password_verify(($password === $result['PASSWORD'])) TODO uses hash
             if ($email === "civicsense2019@gmail.com") { //FIXME Claudia
                 echo 'Accesso consentito alla sezione riservata';
                 echo '<script>window.location.href = "index.php";</script>';
@@ -63,11 +63,11 @@ if (isset($_POST['email'], $_POST['password'])) {
 		{
 			//Connessione Database
 			$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
-	        mysqli_select_db ("civicsense") or die ("DataBase non trovato"); #connessione al db
+	        mysqli_select_db ($conn, "civicsense") or die ("DataBase non trovato"); #connessione al db
 
 
 			$sql = 'SELECT * FROM team WHERE email_t = ' .$email. ';';
-			$result = mysqli_query($sql);	
+			$result = mysqli_query($conn, $sql);
 
 			if (mysqli_num_rows($result) > 0) {
 	   
@@ -92,5 +92,5 @@ if (isset($_POST['email'], $_POST['password'])) {
 	}
 	
 */
-		
+
 ?>
