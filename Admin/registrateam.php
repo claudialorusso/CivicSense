@@ -74,9 +74,12 @@ $pass = (isset($_POST['password'])) ? $_POST['password'] : null;
 if ($email && $pass !== null) {
 
 
-    $query = ("UPDATE team SET password = '$pass' WHERE email_t = '$email'");
+    $query = ("UPDATE team SET password = '$pass' WHERE email_t = ?");
 
-    $result = mysqli_query($conn, $query);
+    $statement = $conn->prepare($query);
+    $statement->bind_param('i', $email);
+    $result = $statement->execute();
+
 
     if ($query) {
         echo("<br><b><br><p> <center> <font color=white font face='Courier'> Password registrata! Clicca su <a href='login.php'> Login </a> per accedere. </b></center></p><br><br> ");

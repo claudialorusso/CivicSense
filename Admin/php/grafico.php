@@ -21,7 +21,7 @@
             $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
             mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
-            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where  month(datainv) = 01 ");
+            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE  month(datainv) = 01 ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -48,7 +48,7 @@
             $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
             mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
-            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 02 ");
+            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 02 ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -74,7 +74,7 @@
             $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
             mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
-            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 03 ");
+            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 03 ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -99,7 +99,7 @@
             $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
             mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
-            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 04  ");
+            $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 04  ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {

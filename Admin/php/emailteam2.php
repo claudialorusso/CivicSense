@@ -12,10 +12,12 @@ $team = $_POST['team'];
 if ($id && $team !== null) {
 
 
-    $query = ("SELECT email_t FROM team WHERE codice = '$team'");
+    $query = ("SELECT email_t FROM team WHERE codice = ?");
 
+    $statement = $conn->prepare($query);
+    $statement->bind_param('s', $team);
 
-    $result = mysqli_query($conn, $query);
+    $result = $statement->execute();
 
 
     if ($result) {

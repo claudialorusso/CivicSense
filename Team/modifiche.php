@@ -15,16 +15,25 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 	$email=$_SESSION['email'];
 	$pass=$_SESSION['pass'];
 	
-	$query = "SELECT * FROM segnalazioni WHERE id =$idS";
-	
-	$result = $conn->query($query);		
+	$query = "SELECT * FROM segnalazioni WHERE id =?";
+
+    $statement = $conn->prepare($query);
+    $statement->bind_param('i', $idS);
+
+	$result = $statement->execute();
 	
 	if($result){
 		//da team a ente e utente
 		$row = $result->fetch_assoc();
 		if($row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
-			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = $idS"; //esegui l'aggiornamento
-			$result1 = $conn->query($sql);
+			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+
+
+            $statement = $conn->prepare($query);
+            $statement->bind_param('i', $idS);
+
+            $result1 = $statement->execute();
+
 			if($result1){
 				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 				$mail = new PHPMailer(true);
@@ -55,8 +64,13 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 		}
 		//da team a ente e utente
 		else if($row['stato']=="In risoluzione" && $stato=="Risolto"){
-			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = $idS"; //esegui l'aggiornamento
-			$result1 = $conn->query($sql);
+            $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+
+
+            $statement = $conn->prepare($query);
+            $statement->bind_param('i', $idS);
+
+            $result1 = $statement->execute();
 			if($result1){
 				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 				$mail = new PHPMailer(true);

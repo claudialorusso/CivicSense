@@ -10,7 +10,9 @@ if (isset($_POST['submit2'])) {
         echo("<p> <center> <font color=black font face='Courier'> Compila tutti i campi.</center></p>");
     } elseif ($cod !== null) {
 
-        $sql = "SELECT * FROM team WHERE codice =' $cod'";
+        $sql = "SELECT * FROM team WHERE codice =?";
+
+
         $statement = $conn->prepare($sql);
         $statement->bind_param('s', $cod);
         $resultC = $statement->execute();
