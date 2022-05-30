@@ -12,13 +12,15 @@
     <title>SB Admin - Tables</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
@@ -169,7 +171,8 @@
                         center: location
                     });
                     <?php
-                    $conn = mysqli_connect("localhost", "root", "", "civicsense") or die("Connessione fallita");
+                    require_once (dirname (__DIR__,1).'\db_connection.php');
+                    $conn = DBconnection::OpenCon();
                     $sql = "SELECT * FROM segnalazioni where tipo = '5' ";
                     $result = mysqli_query($conn, $sql);
                     if ($result) {
@@ -182,8 +185,8 @@
            
             }); ";
                         }
-                        mysqli_close($conn);
                     }
+                    DBconnection::CloseCon();
                     ?>
                     /*var marker = new google.maps.Marker({
                             map: map,
@@ -254,9 +257,6 @@
                 </form>
 
                 <?php
-
-                $conn = mysqli_connect("localhost", "root", "", "civicsense") or die ("Connessione non riuscita");
-
                 $idt = (isset($_POST['idt'])) ? $_POST['idt'] : null;
                 $grav = (isset($_POST['gravit'])) ? $_POST['gravit'] : null;
 
@@ -264,6 +264,7 @@
                 if (isset($_POST['submit'])) {
 
                     if ($idt && $grav !== null) {
+                        $conn = DBconnection::OpenCon();
 
                         $resultC = mysqli_query($conn, "SELECT * FROM segnalazioni WHERE tipo = '5'");
                         if ($resultC) {
@@ -283,11 +284,11 @@
                                 echo "<p> <center> <font color=black font face='Courier'> Inserisci ID esistente.</b></center></p>";
                             }
                         }
+                        DBconnection::CloseCon();
                     } else {
                         echo("<p> <center> <font color=black font face='Courier'> Compila tutti i campi.</b></center></p>");
                     }
                 }
-
                 ?>
                 <br><br><br>
 
@@ -315,15 +316,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>

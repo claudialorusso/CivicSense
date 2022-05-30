@@ -1,9 +1,7 @@
 <?php
 
-#FIXME CLAUDIA
-
-include 'config.php';
-$connection = include 'config.php';
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 //session_start();
 
 # this returns an error if a user clicks the login button without filling the required fields
@@ -18,7 +16,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     //Prepare SQL statement to prevent SQL Injection.
 
     $sql = "SELECT * FROM team WHERE email_t = :email";
-    $query = $connection->prepare($sql);
+    $query = $conn->prepare($sql);
     $query->bindParam("email", $email, PDO::PARAM_STR);
     $query->execute();
 
@@ -61,11 +59,6 @@ if (isset($_POST['email'], $_POST['password'])) {
 		}
 		else
 		{
-			//Connessione Database
-			$conn = mysqli_connect ("localhost", "root", "") or die ("Connessione non riuscita"); 
-	        mysqli_select_db ($conn, "civicsense") or die ("DataBase non trovato"); #connessione al db
-
-
 			$sql = 'SELECT * FROM team WHERE email_t = ' .$email. ';';
 			$result = mysqli_query($conn, $sql);
 
@@ -84,7 +77,6 @@ if (isset($_POST['email'], $_POST['password'])) {
 			
 				}
 			}
-			mysqli_close($conn);
 		}
 	}
 	else{
@@ -93,4 +85,6 @@ if (isset($_POST['email'], $_POST['password'])) {
 	
 */
 
+
+DBconnection::CloseCon();
 ?>
