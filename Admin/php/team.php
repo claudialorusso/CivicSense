@@ -1,8 +1,8 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "civicsense") or die ("Connessione non riuscita");
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 $sql = mysqli_query($conn, "SELECT * FROM team");
-
 
 // output data of each row
 while ($row = mysqli_fetch_assoc($sql)) {
@@ -16,4 +16,5 @@ while ($row = mysqli_fetch_assoc($sql)) {
                
           </tr> ";
 }
+DBconnection::CloseCon();
 ?>

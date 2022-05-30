@@ -4,9 +4,8 @@ session_start();
 //adatto a tutti i domini (GMAIL,LIBERO.HOTMAIL)
 //classi per l'invio dell'email (PHPMailer 5.2)
 
-
-
-$conn = mysqli_connect ("localhost", "root", "","civicsense") or die ("Connessione non riuscita"); 
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 if (isset($_POST['id'])&& isset($_POST['stato'])) {
 	$idS = $_POST['id'];
@@ -94,7 +93,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 			echo "Operazione non disponibile";
 		}
 	}
-	mysqli_close($conn);
 }
+DBconnection::CloseCon();
 
 ?>

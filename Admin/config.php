@@ -1,10 +1,16 @@
 <?php
+
+    //TODO questo file si può cancellare a questo punto (Francesco)
+    require_once realpath(__DIR__ . '/vendor/autoload.php');
+    Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
     // MySQL Database credentials
 
-    if (!defined('USER')) define('USER', 'root');
-    if (!defined('PASSWORD')) define('PASSWORD', '');
-    if (!defined('HOST')) define('HOST', 'localhost');
-    if (!defined('DATABASE')) define('DATABASE','civicsense');
+    if (!defined('USER')) define('USER', $_ENV['DB_USER']);
+    if (!defined('PASSWORD')) define('PASSWORD', $_ENV['DB_PASSWORD']);
+    if (!defined('HOST')) define('HOST', $_ENV['DB_HOST']);
+    if (!defined('DATABASE')) define('DATABASE',$_ENV['DB_NAME']);
 
 
 
@@ -16,13 +22,3 @@
     }
 
 ?>
-
-
-
-/*
-* PRIMA:
-$conn = mysqli_connect(HOST, USER, PASSWORD) or die ("Connessione non riuscita"); #connessione a mysql, la pass non la ho xk è scaricato automaticamente
-
-mysqli_select_db($conn, DATABASE) or die ("DataBase non trovato"); #connessione al db
-*
-*/

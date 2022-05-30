@@ -1,6 +1,6 @@
 <?php
-
-$conn = mysqli_connect("localhost", "root", "", "civicsense") or die ("Connessione non riuscita");
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : null;
 $team = (isset($_POST['team'])) ? $_POST['team'] : null;
@@ -65,4 +65,5 @@ if (isset($_POST['submit'])) {
     }
 }
 
+DBconnection::CloseCon();
 ?>

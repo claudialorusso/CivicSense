@@ -7,7 +7,8 @@ session_start();
 
 require('phpmailer/class.phpmailer.php');
 include('phpmailer/class.smtp.php');
-$conn = new mysqli ("localhost", "root", "", "civicsense") or die ("Connessione non riuscita");
+require_once (dirname (__DIR__,1).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 if (isset($_POST['id']) && isset($_POST['stato'])) {
     $idS = $_POST['id'];
@@ -98,7 +99,8 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
             echo "Operazione non disponibile";
         }
     }
-    mysqli_close($conn);
 }
+
+DBconnection::CloseCon();
 
 ?>

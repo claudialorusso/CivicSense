@@ -1,8 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-
-mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato"); #connessione al db
-
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 if (isset($_SESSION['idT'])) {
     $upload_path = '../Admin/img/';
 
@@ -31,5 +29,6 @@ if (isset($_SESSION['idT'])) {
 
 }
 
+DBconnection::CloseCon();
 
 ?>

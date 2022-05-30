@@ -1,9 +1,6 @@
 <?php
-
-$conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-
-mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 $id = $_POST['id'];
 $team = $_POST['team'];
@@ -25,4 +22,6 @@ if ($id && $team !== null) {
 
     }
 }
+
+DBconnection::CloseCon();
 ?>

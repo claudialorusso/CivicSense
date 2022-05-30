@@ -1,5 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "civicsense") or die ("Connessione non riuscita");
+require_once (dirname (__DIR__,2).'\db_connection.php');
+$conn = DBconnection::OpenCon();
 
 
 $upload_path = 'img/';
@@ -33,4 +34,5 @@ while ($row = mysqli_fetch_assoc($quer)) {
           </tr> ";
 }
 
+DBconnection::CloseCon();
 ?>

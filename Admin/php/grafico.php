@@ -17,10 +17,8 @@
 
 
             <?php
-
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
+            require_once (dirname (__DIR__,2).'\db_connection.php');
+            $conn = DBconnection::OpenCon();
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE  month(datainv) = 01 ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -45,9 +43,6 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 02 ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -71,9 +66,6 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 03 ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -95,9 +87,6 @@
             "month": "APR",
             "value1":
             <?php
-
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni WHERE month(datainv) = 04  ");
 
@@ -121,9 +110,6 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 05 ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -145,9 +131,6 @@
             "month": "GIU",
             "value1":
             <?php
-
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 06 ");
 
@@ -171,9 +154,6 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 07  ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -195,9 +175,6 @@
             "month": "AGOS",
             "value1":
             <?php
-
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
 
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 08  ");
 
@@ -221,9 +198,6 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 09  ");
 
             if (mysqli_num_rows($quer) > 0) {
@@ -246,12 +220,9 @@
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont
-FROM segnalazioni
-Where month(datainv) = 10  ");
+            FROM segnalazioni
+            Where month(datainv) = 10  ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -273,12 +244,9 @@ Where month(datainv) = 10  ");
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont
-FROM segnalazioni
-Where month(datainv) = 11  ");
+            FROM segnalazioni
+            Where month(datainv) = 11  ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -300,12 +268,9 @@ Where month(datainv) = 11  ");
             "value1":
             <?php
 
-            $conn = mysqli_connect("localhost", "root", "") or die ("Connessione non riuscita");
-            mysqli_select_db($conn, "civicsense") or die ("DataBase non trovato");
-
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont
-FROM segnalazioni
-Where month(datainv) = 12 ");
+            FROM segnalazioni
+            Where month(datainv) = 12 ");
 
             if (mysqli_num_rows($quer) > 0) {
                 while ($row = mysqli_fetch_assoc($quer)) {
@@ -317,6 +282,8 @@ Where month(datainv) = 12 ");
 ";
                 }
             }
+
+            DBconnection::CloseCon();
             ?> ,
             "value2": 15,
             "value3": 0,
@@ -412,4 +379,5 @@ Where month(datainv) = 12 ");
             }]
         }
     });
+
 </script>
