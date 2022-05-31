@@ -96,8 +96,10 @@ if (isset($_POST['email'], $_POST['password'])) {
         echo 'Email e/o password non corrette!';
     } else {
         if ($password === $result['password']) { //password_verify(($password === $result['PASSWORD'])) TODO uses hash
-            if ($email === "civicsense2019@gmail.com") { //FIXME Claudia
+            //Utente autenticato
+            if ($result["admin"]) {
                 echo 'Accesso consentito alla sezione riservata';
+
                 echo '<script>window.location.href = "index.php";</script>';
             } else {
                 // create sessions to know the user is logged in
