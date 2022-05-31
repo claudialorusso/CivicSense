@@ -14,9 +14,7 @@
             "month": "GEN",
             "value1":
 
-
-
-            <?php
+o            <?php
             $conn = DBconnection::OpenCon();
 
             $quer = mysqli_query($conn, "Select COUNT(*) AS cont FROM segnalazioni Where month(datainv) = 01 AND tipo = '3' ");
