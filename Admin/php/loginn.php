@@ -1,7 +1,8 @@
 <?php
-
-require_once (dirname (__DIR__,2).'\db_connection.php');
+#FIXME CLAUDIA
+require_once(dirname(__DIR__, 1) . '\db_connection.php');
 $conn = DBconnection::OpenCon();
+
 //session_start();
 
 # this returns an error if a user clicks the login button without filling the required fields
@@ -14,30 +15,42 @@ if (isset($_POST['email'], $_POST['password'])) {
     $password = $_POST['password'];
 
     //Prepare SQL statement to prevent SQL Injection.
+    try {
+        $sql = "SELECT * FROM team WHERE email_t = ?";
 
-    $sql = "SELECT * FROM team WHERE email_t = :email";
-    $query = $conn->prepare($sql);
-    $query->bindParam("email", $email, PDO::PARAM_STR);
-    $query->execute();
 
-    $result = $query->fetch(PDO::FETCH_ASSOC);
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $email);
+        $statement->execute();
 
-    if (!$result) {
-        echo 'Email e/o password non corrette!';
-    } else {
-        if ($password === $result['password']) { //password_verify(($password === $result['PASSWORD'])) TODO uses hash
-            if ($email === "civicsense2019@gmail.com") { //FIXME Claudia
-                echo 'Accesso consentito alla sezione riservata';
-                echo '<script>window.location.href = "index.php";</script>';
+        $result = $statement->get_result();
+        if($result->num_rows === 0) exit ('Email e/o password non corrette!');
+        while($row = $result->fetch_assoc()){
+            if (!$result) {
+                echo 'Email e/o password non corrette!';
             } else {
-                // create sessions to know the user is logged in
+                if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
+                    //Utente autenticato
+                    if ($row["admin"]) {
+                        echo 'Accesso consentito alla sezione riservata';
 
-                $_SESSION['user_id'] = $result['ID'];
-                echo 'Accesso consentito alla area riservata (TEAM)';
-                header("location: http://localhost//CivicSense/Team/index.php");
+                        echo '<script>window.location.href = "index.php";</script>';
+                    } else {
+                        // create sessions to know the user is logged in
+
+                        $_SESSION['user_id'] = $row['ID'];
+                        echo 'Accesso consentito alla area riservata (TEAM)';
+                        header("location: http://localhost//CivicSense/Team/index.php");
+                    }
+                } else echo 'Email e/o password non corrette!';
             }
-        } else echo 'Email e/o password non corrette!';
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        echo("Error: " . $e);
+        exit;
     }
+
 }
 
 /*
