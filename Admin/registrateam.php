@@ -76,7 +76,7 @@ if ($email && $pass !== null) {
     $query = ("UPDATE team SET password = '$pass' WHERE email_t = ?");
 
     $statement = $conn->prepare($query);
-    $statement->bind_param('i', $email);
+    $statement->bind_param('s', $email);
     $result = $statement->execute();
 
 
