@@ -35,7 +35,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
 
-            $statement = $conn->prepare($query);
+            $statement = $conn->prepare($sql);
             $statement->bind_param('i', $idS);
 
             $result1 = $statement->execute();
@@ -60,7 +60,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 				  $mail->Body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
 				  $mail->Send();
 				  echo "Message Sent OK";
-				  header("location: http://localhost/Ingegneria/Team/index.php");
+				  header("location: http://localhost/CivicSense/Team/index.php");
 				} catch (phpmailerException $e) {
 					  echo $e->errorMessage(); //Errori da PHPMailer
 				} catch (Exception $e) {
@@ -73,7 +73,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
             $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
 
-            $statement = $conn->prepare($query);
+            $statement = $conn->prepare($sql);
             $statement->bind_param('i', $idS);
 
             $result1 = $statement->execute();
@@ -96,7 +96,7 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 				  $mail->Subject = "Segnalazione risolta";
 				  $mail->Body = "Il problema presente in ".$row['via']." è stata risolta"; //Messaggio da inviare
 				  $mail->Send();
-				  header("location: http://localhost/Ingegneria/Team/index.php");
+				  header("location: http://localhost/CivicSense/Team/index.php");
 				} catch (phpmailerException $e) {
 					  echo $e->errorMessage(); //Errori da PHPMailer
 				} catch (Exception $e) {
