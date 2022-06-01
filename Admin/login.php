@@ -1,5 +1,3 @@
-<?php session_start() ?>
-
 <!DOCTYPE html>
 
 <head>
@@ -115,6 +113,13 @@ if (isset($_POST['email'], $_POST['password'])) {
                     } else {
                         // create sessions to know the user is logged in
 
+                        require_once(dirname(__DIR__, 1) . '\session.php');
+                        $session = new session();
+                        // Set to true if using https
+                        $session->start_session('_s', false);
+
+                        #$_SESSION['something'] = 'A value.';
+                        #echo $_SESSION['something'];
                         $_SESSION['user_id'] = $row['ID'];
                         echo 'Accesso consentito alla area riservata (TEAM)';
                         header("location: http://localhost//CivicSense/Team/index.php");
