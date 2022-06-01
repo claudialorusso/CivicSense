@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php // create sessions to know the user is logged in
+
+require_once(dirname(__DIR__, 1) . '\session.php');
+$session = new session();
+// Set to true if using https
+$session->start_session('_s', false); ?>
 <!DOCTYPE html>
 <html lang="en">
 

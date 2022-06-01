@@ -1,5 +1,12 @@
 <?php
-session_start();
+// create sessions to know the user is logged in
+
+require_once(dirname(__DIR__, 1) . '\session.php');
+$session = new session();
+// Set to true if using https
+$session->start_session('_s', false);
+
+
 //puoi modificare la pagina per farla funzionare nella tua macchina
 //adatto a tutti i domini (GMAIL,LIBERO.HOTMAIL)
 //classi per l'invio dell'email (PHPMailer 5.2)
