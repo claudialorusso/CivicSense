@@ -13,11 +13,17 @@
     <title>SB Admin - Login</title>
 
     <!-- Bootstrap core CSS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
@@ -65,11 +71,13 @@
 </div>
 
 <!-- Core plugin JavaScript-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
+        integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <?php
 #FIXME CLAUDIA
-require_once (dirname (__DIR__,1).'\db_connection.php');
+require_once(dirname(__DIR__, 1) . '\db_connection.php');
 $conn = DBconnection::OpenCon();
 
 //session_start();
@@ -84,32 +92,42 @@ if (isset($_POST['email'], $_POST['password'])) {
     $password = $_POST['password'];
 
     //Prepare SQL statement to prevent SQL Injection.
+    try {
+        $sql = "SELECT * FROM team WHERE email_t = ?";
 
-    $sql = "SELECT * FROM team WHERE email_t = :email";
-    $query = $conn->prepare($sql);
-    $query->bindParam("email", $email, PDO::PARAM_STR);
-    $query->execute();
 
-    $result = $query->fetch(PDO::FETCH_ASSOC);
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $email);
+        $statement->execute();
 
-    if (!$result) {
-        echo 'Email e/o password non corrette!';
-    } else {
-        if ($password === $result['password']) { //password_verify(($password === $result['PASSWORD'])) TODO uses hash
-            //Utente autenticato
-            if ($result["admin"]) {
-                echo 'Accesso consentito alla sezione riservata';
-
-                echo '<script>window.location.href = "index.php";</script>';
+        $result = $statement->get_result();
+        if($result->num_rows === 0) exit ('Email e/o password non corrette!');
+        while($row = $result->fetch_assoc()){
+            if (!$result) {
+                echo 'Email e/o password non corrette!';
             } else {
-                // create sessions to know the user is logged in
+                if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
+                    //Utente autenticato
+                    if ($row["admin"]) {
+                        echo 'Accesso consentito alla sezione riservata';
 
-                $_SESSION['user_id'] = $result['ID'];
-                echo 'Accesso consentito alla area riservata (TEAM)';
-                header("location: http://localhost//CivicSense/Team/index.php");
+                        echo '<script>window.location.href = "index.php";</script>';
+                    } else {
+                        // create sessions to know the user is logged in
+
+                        $_SESSION['user_id'] = $row['ID'];
+                        echo 'Accesso consentito alla area riservata (TEAM)';
+                        header("location: http://localhost//CivicSense/Team/index.php");
+                    }
+                } else echo 'Email e/o password non corrette!';
             }
-        } else echo 'Email e/o password non corrette!';
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        echo("Error: " . $e);
+        exit;
     }
+
 }
 //}
 

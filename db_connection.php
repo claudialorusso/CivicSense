@@ -24,6 +24,7 @@ class DBconnection{
         {
             try {
                 self::$conn = mysqli_connect(self::$dbHost, self::$dbUsername, self::$dbPassword, self::$dbName) or die ("Connessione non riuscita");
+
             } catch(Exception $e)
             {
                 error_log(print_r("Errore: $e", TRUE));
