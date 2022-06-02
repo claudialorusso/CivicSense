@@ -99,8 +99,8 @@ if (isset($_POST['email'], $_POST['password'])) {
         $statement->execute();
 
         $result = $statement->get_result();
-        if($result->num_rows === 0) exit ('Email e/o password non corrette!');
-        while($row = $result->fetch_assoc()){
+        if ($result->num_rows === 0) exit ('Email e/o password non corrette!');
+        while ($row = $result->fetch_assoc()) {
             if (!$result) {
                 echo 'Email e/o password non corrette!';
             } else {
