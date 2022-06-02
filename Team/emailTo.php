@@ -11,9 +11,6 @@ $session->start_session('_s', false);
 //adatto a tutti i domini (GMAIL,LIBERO.HOTMAIL)
 //classi per l'invio dell'email (PHPMailer 5.2)
 
-
-require('phpmailer/class.phpmailer.php');
-include('phpmailer/class.smtp.php');
 require_once (dirname (__DIR__,1).'\db_connection.php');
 $conn = DBconnection::OpenCon();
 
@@ -39,32 +36,19 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
             $statement->bind_param('i', $idS);
             $result1 = $statement->execute();
 
-
             if ($result1) {
                 echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                $mail = new PHPMailer(true);
+                $subject = 'Nuova Segnalazione';
+                $body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
+                $recipients = ["civicsense2019@gmail.com", $row['email']];
+                $mail = new Mail($subject, $body, $recipients, true);
 
                 try {
-                    $mail->SMTPAuth = true;                  // sblocchi SMTP
-                    $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-                    $mail->Host = "smtp.gmail.com";      // metti il tuo domino es(gmail)
-                    $mail->Port = 465;                // inserisci la porta smtp per il server DOMINIO
-                    $mail->SMTPKeepAlive = true;
-                    $mail->Mailer = "smtp";
-                    $mail->Username = "$email";        // DOMINIO username
-                    $mail->Password = "$pass";        // DOMINIO password
-                    $mail->AddAddress("civicsense2019@gmail.com");
-                    $mail->AddAddress($row['email']);
-                    $mail->SetFrom("$email");
-                    $mail->Subject = 'Nuova Segnalazione';
-                    $mail->Body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
                     $mail->Send();
                     echo "Message Sent OK";
                     header("location: http://localhost/Ingegneria/Team/index.php");
-                } catch (phpmailerException $e) {
-                    echo $e->errorMessage(); //Errori da PHPMailer
                 } catch (Exception $e) {
-                    echo $e->getMessage(); //Errori da altrove
+                    echo $e->getMessage();
                 }
             }
         } //da team a ente e utente
@@ -76,31 +60,16 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
             #$result1 = $conn->query($sql);
             if ($result1) {
                 echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                $mail = new PHPMailer(true);
-
+                $subject = 'Segnalazione risolta';
+                $body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
+                $recipients = ["civicsense2019@gmail.com", $row['email']];
+                $mail = new Mail($subject, $body, $recipients, true);
                 try {
-                    $mail->SMTPAuth = true;                  // sblocchi SMTP
-                    $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-                    $mail->Host = "smtp.gmail.com";      // metti il tuo domino es(gmail)
-                    $mail->Port = 465;                // inserisci la porta smtp per il server DOMINIO
-                    $mail->SMTPKeepAlive = true;
-                    $mail->Mailer = "smtp";
-                    $mail->Username = "$email";        // DOMINIO username
-                    $mail->Password = "$pass";        // DOMINIO password
-                    $mail->AddAddress("civicsense2019@gmail.com");
-                    $mail->AddAddress($row['email']);
-                    $mail->SetFrom("$email");
-                    $mail->Subject = "Segnalazione risolta";
-                    $mail->Body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
-                    $mail->Send();
+                   $mail->Send();
                     header("location: http://localhost/Ingegneria/Team/index.php");
-                } catch (phpmailerException $e) {
-                    echo $e->errorMessage(); //Errori da PHPMailer
                 } catch (Exception $e) {
-                    echo $e->getMessage(); //Errori da altrove
+                    echo $e->getMessage();
                 }
-
-
             }
         } else {
             echo "Operazione non disponibile";
