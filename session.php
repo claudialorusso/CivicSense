@@ -3,7 +3,7 @@
 class session
 {
     private $root;
-    //This function sets our custom session handler so it is available for use as soon as the class is instantiated (i.e., made/built/constructed).
+    //This function sets our custom session handler, so it is available for use as soon as the class is instantiated (i.e., made/built/constructed).
     function __construct() {
         // set our custom session functions.
         session_set_save_handler(array($this, 'open'), array($this, 'close'), array($this, 'read'), array($this, 'write'), array($this, 'destroy'), array($this, 'gc'));
