@@ -278,9 +278,16 @@
                             $conn = DBconnection::OpenCon();
 
                             #inserisco i valori salvati dal form nella query di inserimento
-                            $toinsert = "INSERT INTO team (email_t, n_persone, nomi, password) VALUES ('$email','$numeri', '$nomi','$pass')";
+                            $toinsert = "INSERT INTO team (email_t, n_persone, nomi, password) VALUES (?,?, ?,?)";
 
-                            $result = mysqli_query($conn, $toinsert);
+                            $statement = $conn->prepare($toinsert);
+                            $statement->bind_param('siss', $email, $numeri, $nomi, $pass);
+                            $result = $statement->execute();
+
+
+
+
+                            //$result = mysqli_query($conn, $toinsert); //FIXME necessary?
 
                             if ($result) {
                                 echo("<b><br><p> <center> <font color=black font face='Courier'> Inserimento avvenuto correttamente! Ricarica la pagina per vedere la tabella aggiornata!</p></b></center>");
