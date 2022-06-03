@@ -273,7 +273,8 @@ class SMTP
         switch ($this->Debugoutput) {
             case 'error_log':
                 //Don't output, just log
-                error_log($str);
+                //error_log($str); FIXME
+                error_log("Error in handling the message");
                 break;
             case 'html':
                 //Cleans up output a bit for a better looking, HTML-safe output
@@ -694,17 +695,22 @@ class SMTP
     }
 
     //FIXME use .env
-    private function encryption($msg_data){
+    private function encryption($msg_data){ //TODO see if .env options captured in the correct way
+        require_once realpath(__DIR__ . '/vendor/autoload.php');
+        Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
+
         //Store the cipher method
-        $ciphering = "AES-128-CTR"; //TODO
+        $ciphering = $_ENV["SMTP_CIPHERING"]; //TODO
         //Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
-        $options = 0;
+        $options = $_ENV["SMTP_OPTIONS"];
 
         // Non-NULL Initialization Vector for encryption
-        $encryption_iv = '1234567891011121';
+        $encryption_iv = $_ENV["SMTP_CRYPT_IV"];
 
-        $encryption_key = "Y0U-W1sh_u_c0uld.H4v3*1t";
+        $encryption_key = $_ENV["SMTP_CRYPT_KEY"];
 
         // Use openssl_encrypt() function to encrypt the data
         $encryption = openssl_encrypt($msg_data, $ciphering,
@@ -713,16 +719,21 @@ class SMTP
     }
 
     private function decryption($msg_data){
+        require_once realpath(__DIR__ . '/vendor/autoload.php');
+        Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
+
         //Store the cipher method
-        $ciphering = "AES-128-CTR"; //TODO
+        $ciphering = $_ENV["SMTP_CIPHERING"]; //TODO
         //Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
-        $options = 0;
+        $options = $_ENV["SMTP_OPTIONS"];
 
         // Non-NULL Initialization Vector for encryption
-        $decryption_iv = '1234567891011121';
+        $decryption_iv = $_ENV["SMTP_CRYPT_IV"];
 
-        $decryption_key = "Y0U-W1sh_u_c0uld.H4v3*1t";
+        $decryption_key = $_ENV["SMTP_CRYPT_KEY"];
 
         // Use openssl_encrypt() function to encrypt the data
         $decryption = openssl_decrypt($msg_data, $ciphering,
