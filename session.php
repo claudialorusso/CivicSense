@@ -3,6 +3,7 @@
 class session
 {
     private $root;
+    private $db_conn;
     //This function sets our custom session handler, so it is available for use as soon as the class is instantiated (i.e., made/built/constructed).
     function __construct() {
         // set our custom session functions.
@@ -51,12 +52,13 @@ class session
 
     function open() {
         require_once $this->root . '\db_connection.php'; //$_SERVER['DOCUMENT_ROOT']."db_connection.php";
-        return DBconnection::OpenCon();
+        $this->db_conn = DBconnection::OpenCon();
+        return true;
     }
 
     function close(){
-
-        return DBconnection::CloseCon();
+        DBconnection::CloseCon();
+        return true;
     }
 
     //This function will be called by PHP when we try to access a session for example when we use echo $_SESSION['something'];. Because there might be many calls to this function on a single page, we take advantage of prepared statements, not only for security but for performance also. We only prepare the statement once then we can execute it many times.
