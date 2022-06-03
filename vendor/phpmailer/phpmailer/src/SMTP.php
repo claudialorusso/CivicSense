@@ -704,7 +704,7 @@ class SMTP
         // Non-NULL Initialization Vector for encryption
         $encryption_iv = '1234567891011121';
 
-        $encryption_key = "Y0U-Wh1sh_u_c0uld.H4v3*1t";
+        $encryption_key = "Y0U-W1sh_u_c0uld.H4v3*1t";
 
         // Use openssl_encrypt() function to encrypt the data
         $encryption = openssl_encrypt($msg_data, $ciphering,
@@ -722,11 +722,11 @@ class SMTP
         // Non-NULL Initialization Vector for encryption
         $decryption_iv = '1234567891011121';
 
-        $decryption_key = "Y0U-Wh1sh_u_c0uld.H4v3*1t";
+        $decryption_key = "Y0U-W1sh_u_c0uld.H4v3*1t";
 
         // Use openssl_encrypt() function to encrypt the data
         $decryption = openssl_decrypt($msg_data, $ciphering,
-            $encryption_key, $options, $encryption_iv);
+            $decryption_key, $options, $decryption_iv);
         return $decryption;
     }
 
