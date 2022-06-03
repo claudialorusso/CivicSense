@@ -24,55 +24,66 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
 
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $idS);
-    $result = $statement->execute();
+    $statement->execute();
+    $result = $statement->get_result();
 
-    if ($result) {
-        //da team a ente e utente
-        $row = $result->fetch_assoc();
-        if ($row['stato'] == "In attesa" && $stato == "In risoluzione") { //confronta stato attuale e quello da modificare
-            $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
-
-            $statement = $conn->prepare($sql);
-            $statement->bind_param('i', $idS);
-            $result1 = $statement->execute();
-
-            if ($result1) {
-                echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                $subject = 'Nuova Segnalazione';
-                $body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
-                $recipients = ["civicsense2019@gmail.com", $row['email']];
-                $mail = new Mail($subject, $body, $recipients, true);
-
-                try {
-                    $mail->Send();
-                    echo "Message Sent OK";
-                    header("location: http://localhost/Ingegneria/Team/index.php");
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                }
-            }
-        } //da team a ente e utente
-        else if ($row['stato'] == "In risoluzione" && $stato == "Risolto") {
-            $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
-            $statement = $conn->prepare(sql);
-            $statement->bind_param('i', $idS);
-            $result1 = $statement->execute();
-            #$result1 = $conn->query($sql);
-            if ($result1) {
-                echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                $subject = 'Segnalazione risolta';
-                $body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
-                $recipients = ["civicsense2019@gmail.com", $row['email']];
-                $mail = new Mail($subject, $body, $recipients, true);
-                try {
-                   $mail->Send();
-                    header("location: http://localhost/Ingegneria/Team/index.php");
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                }
-            }
+    if ($result->num_rows === 0) exit ('Inserire un ID valido');
+    while ($row = $result->fetch_assoc()) {
+        if (!$result) {
+            echo 'Inserire un ID valido!';
         } else {
-            echo "Operazione non disponibile";
+            //da team a ente e utente
+            $row = $result->fetch_assoc();
+            if ($row['stato'] == "In attesa" && $stato == "In risoluzione") { //confronta stato attuale e quello da modificare
+                $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+
+                $statement = $conn->prepare($sql);
+                $statement->bind_param('i', $idS);
+                $statement->execute();
+                $result1 = $statement->get_result();
+                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
+                while ($row = $result1->fetch_assoc()) {
+                    if ($result1) {
+                        echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
+                        $subject = 'Nuova Segnalazione';
+                        $body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
+                        $recipients = ["civicsense2019@gmail.com", $row['email']];
+                        $mail = new Mail($subject, $body, $recipients, true);
+
+                        try {
+                            $mail->Send();
+                            echo "Message Sent OK";
+                            header("location: http://localhost/CivicSense/Team/index.php");
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
+                        }
+                    }
+                }
+            } //da team a ente e utente
+            else if ($row['stato'] == "In risoluzione" && $stato == "Risolto") {
+                $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+                $statement = $conn->prepare($sql);
+                $statement->bind_param('i', $idS);
+                $statement->execute();
+                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
+                while ($row = $result1->fetch_assoc()) {
+                    if ($result1) {
+                        echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
+                        $subject = 'Segnalazione risolta';
+                        $body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
+                        $recipients = ["civicsense2019@gmail.com", $row['email']];
+                        $mail = new Mail($subject, $body, $recipients, true);
+                        try {
+                        $mail->Send();
+                            header("location: http://localhost/CivicSense/Team/index.php");
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
+                        }
+                    } else {
+                    echo "Operazione non disponibile";
+                    }
+                }
+            }
         }
     }
 }

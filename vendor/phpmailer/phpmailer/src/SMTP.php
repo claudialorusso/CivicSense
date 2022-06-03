@@ -693,6 +693,43 @@ class SMTP
         }
     }
 
+    //FIXME use .env
+    private function encryption($msg_data){
+        //Store the cipher method
+        $ciphering = "AES-128-CTR"; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+
+        // Non-NULL Initialization Vector for encryption
+        $encryption_iv = '1234567891011121';
+
+        $encryption_key = "Y0U-Wh1sh_u_c0uld.H4v3*1t";
+
+        // Use openssl_encrypt() function to encrypt the data
+        $encryption = openssl_encrypt($msg_data, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $encryption;
+    }
+
+    private function decryption($msg_data){
+        //Store the cipher method
+        $ciphering = "AES-128-CTR"; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+
+        // Non-NULL Initialization Vector for encryption
+        $decryption_iv = '1234567891011121';
+
+        $decryption_key = "Y0U-Wh1sh_u_c0uld.H4v3*1t";
+
+        // Use openssl_encrypt() function to encrypt the data
+        $decryption = openssl_decrypt($msg_data, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $decryption;
+    }
+
     /**
      * Send an SMTP DATA command.
      * Issues a data command and sends the msg_data to the server,
@@ -708,6 +745,7 @@ class SMTP
      */
     public function data($msg_data)
     {
+
         //This will use the standard timelimit
         if (!$this->sendCommand('DATA', 'DATA', 354)) {
             return false;
@@ -772,7 +810,11 @@ class SMTP
                 if (!empty($line_out) && $line_out[0] === '.') {
                     $line_out = '.' . $line_out;
                 }
-                $this->client_send($line_out . static::LE, 'DATA');
+
+                //Encrypts the line of the message
+                $encrypted_line_out = self::encryption($line_out);
+
+                $this->client_send($encrypted_line_out . static::LE, 'DATA');
             }
         }
 
@@ -1122,10 +1164,20 @@ class SMTP
             $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
         set_error_handler([$this, 'errorHandler']);
-        $result = fwrite($this->smtp_conn, $data);
+        $result = self::fwrite_stream($this->smtp_conn, $data);
         restore_error_handler();
 
         return $result;
+    }
+
+    private function fwrite_stream($fp, $string) {
+        for ($written = 0; $written < strlen($string); $written += $fwrite) {
+            $fwrite = fwrite($fp, substr($string, $written));
+            if ($fwrite === false) {
+                return $written;
+            }
+        }
+        return $written;
     }
 
     /**
@@ -1260,6 +1312,7 @@ class SMTP
 
             //Deliberate noise suppression - errors are handled afterwards
             $str = @fgets($this->smtp_conn, self::MAX_REPLY_LENGTH);
+            $str = self::decryption($str);//FIXME claudia
             $this->edebug('SMTP INBOUND: "' . trim($str) . '"', self::DEBUG_LOWLEVEL);
             $data .= $str;
             //If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),
