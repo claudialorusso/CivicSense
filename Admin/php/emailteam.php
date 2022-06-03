@@ -29,18 +29,22 @@ if (isset($_POST['submit'])) {
                         $query1 = ("SELECT * FROM team WHERE codice = ?");
                         $statement = $conn->prepare($query1);
                         $statement->bind_param('s', $team);
-                        $result1 = $statement->execute();
+                        $statement->execute();
                         #$result1 = mysqli_query($conn,$query1);
-                        if ($result1) {
-                            $row = mysqli_fetch_assoc($result1);
-                            $subject = 'Nuova Segnalazione';
-                            $body = "Salve team $team, vi e' stata incaricata una nuova segnalazione da risolvere."; //Messaggio da inviare
-                            $recipients = [$row["email_t"]];
-                            $fromAddress = "civicsense2019@gmail.com";
-                            $mail = new Mail($subject, $body, $recipients, true, $fromAddress);
+                        $result1 = $statement->get_result();
+                        if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
+                        while ($row = $result1->fetch_assoc()) {
+                            if ($result1) {
+                                $row = mysqli_fetch_assoc($result1);
+                                $subject = 'Nuova Segnalazione';
+                                $body = "Salve team $team, vi e' stata incaricata una nuova segnalazione da risolvere."; //Messaggio da inviare
+                                $recipients = [$row["email_t"]];
+                                $fromAddress = "civicsense2019@gmail.com";
+                                $mail = new Mail($subject, $body, $recipients, true, $fromAddress);
 
-                            $mail->Body = $mail->Send();
-                            echo "<center><b>Messaggio inviato.</b></center>";
+                                $mail->Body = $mail->Send();
+                                echo "<center><b>Messaggio inviato.</b></center>";
+                            }
                         }
                     } catch (Exception $e) {
                         echo $e->getMessage(); //Errori da altrove
