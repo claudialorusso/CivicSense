@@ -1175,7 +1175,7 @@ class SMTP
             $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
         set_error_handler([$this, 'errorHandler']);
-        $result = self::fwrite_stream($this->smtp_conn, $data);
+        $result = $this->fwrite_stream($this->smtp_conn, $data);
         restore_error_handler();
 
         return $result;
