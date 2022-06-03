@@ -200,7 +200,7 @@
                             require_once (dirname (__DIR__,1).'\db_connection.php');
                             $conn = DBconnection::OpenCon();
 
-                            $selezione = mysqli_query($conn, "SELECT email_t, codice FROM team") or die(mysqli_error());
+                            $selezione = mysqli_query($conn, "SELECT email_t, codice FROM team") or die(mysqli_error($conn));
 
                             if ($selezione) {
                                 while ($array = mysqli_fetch_assoc($selezione)) {

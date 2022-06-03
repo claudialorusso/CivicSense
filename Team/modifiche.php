@@ -26,89 +26,96 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $idS);
 
-	$result = $statement->execute();
-	
-	if($result){
-		//da team a ente e utente
-		$row = $result->fetch_assoc();
-		if($row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
-			$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+	$statement->execute();
+	$result = $statement->get_result();
+	if ($result->num_rows === 0) exit ('Errore nel recupero dello ID ');
+	while ($row = $result->fetch_assoc()) {
+		if($result){
+			//da team a ente e utente
+			$row = $result->fetch_assoc();
+			if($row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
+				$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
 
-            $statement = $conn->prepare($sql);
-            $statement->bind_param('i', $idS);
+				$statement = $conn->prepare($sql);
+				$statement->bind_param('i', $idS);
 
-            $result1 = $statement->execute();
-
-			if($result1){
-				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-				$mail = new PHPMailer(true);
-	
-				try {
-				  $mail->SMTPAuth   = true;                  // sblocchi SMTP 
-				  $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-				  $mail->Host       = "smtp.gmail.com";      // metti il tuo domino es(gmail) 
-				  $mail->Port       = 465;   				// inserisci la porta smtp per il server DOMINIO
-				  $mail->SMTPKeepAlive = true;
-				  $mail->Mailer = "smtp";
-				  $mail->Username   = "$email";      	// DOMINIO username
-				  $mail->Password   = "$pass";        // DOMINIO password
-				  $mail->AddAddress("civicsense2019@gmail.com");
-				  $mail->AddAddress($row['email']);
-				  $mail->SetFrom("$email");
-				  $mail->Subject = 'Nuova Segnalazione';
-				  $mail->Body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
-				  $mail->Send();
-				  echo "Message Sent OK";
-				  header("location: http://localhost/CivicSense/Team/index.php");
-				} catch (phpmailerException $e) {
-					  echo $e->errorMessage(); //Errori da PHPMailer
-				} catch (Exception $e) {
-					  echo $e->getMessage(); //Errori da altrove
+				$statement->execute();
+				$result1 = $statement->get_result();
+                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
+                while ($row = $result1->fetch_assoc()) {
+					if($result1){
+						echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
+						$mail = new PHPMailer(true);
+			
+						try {
+						$mail->SMTPAuth   = true;                  // sblocchi SMTP 
+						$mail->SMTPSecure = "ssl";                 // metti prefisso per il server
+						$mail->Host       = "smtp.gmail.com";      // metti il tuo domino es(gmail) 
+						$mail->Port       = 465;   				// inserisci la porta smtp per il server DOMINIO
+						$mail->SMTPKeepAlive = true;
+						$mail->Mailer = "smtp";
+						$mail->Username   = "$email";      	// DOMINIO username
+						$mail->Password   = "$pass";        // DOMINIO password
+						$mail->AddAddress("civicsense2019@gmail.com");
+						$mail->AddAddress($row['email']);
+						$mail->SetFrom("$email");
+						$mail->Subject = 'Nuova Segnalazione';
+						$mail->Body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
+						$mail->Send();
+						echo "Message Sent OK";
+						header("location: http://localhost/CivicSense/Team/index.php");
+						} catch (phpmailerException $e) {
+							echo $e->errorMessage(); //Errori da PHPMailer
+						} catch (Exception $e) {
+							echo $e->getMessage(); //Errori da altrove
+						}
+					}
 				}
-			} 
-		}
-		//da team a ente e utente
-		else if($row['stato']=="In risoluzione" && $stato=="Risolto"){
-            $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+			}
+			//da team a ente e utente
+			else if($row['stato']=="In risoluzione" && $stato=="Risolto"){
+				$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
 
-            $statement = $conn->prepare($sql);
-            $statement->bind_param('i', $idS);
+				$statement = $conn->prepare($sql);
+				$statement->bind_param('i', $idS);
 
-            $result1 = $statement->execute();
-			if($result1){
-				echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-				$mail = new PHPMailer(true);
-	
-				try {
-				  $mail->SMTPAuth   = true;                  // sblocchi SMTP 
-				  $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-				  $mail->Host       = "smtp.gmail.com";      // metti il tuo domino es(gmail) 
-				  $mail->Port       = 465;   				// inserisci la porta smtp per il server DOMINIO
-				  $mail->SMTPKeepAlive = true;
-				  $mail->Mailer = "smtp";
-				  $mail->Username   = "$email";      	// DOMINIO username
-				  $mail->Password   = "$pass";        // DOMINIO password
-				  $mail->AddAddress("civicsense2019@gmail.com");
-				  $mail->AddAddress($row['email']);
-				  $mail->SetFrom("$email");
-				  $mail->Subject = "Segnalazione risolta";
-				  $mail->Body = "Il problema presente in ".$row['via']." è stata risolta"; //Messaggio da inviare
-				  $mail->Send();
-				  header("location: http://localhost/CivicSense/Team/index.php");
-				} catch (phpmailerException $e) {
-					  echo $e->errorMessage(); //Errori da PHPMailer
-				} catch (Exception $e) {
-					  echo $e->getMessage(); //Errori da altrove
+				$statement->execute();
+                $result1 = $statement->get_result();
+                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
+                while ($row = $result1->fetch_assoc()) {
+					if($result1){
+						echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
+						$mail = new PHPMailer(true);
+			
+						try {
+						$mail->SMTPAuth   = true;                  // sblocchi SMTP 
+						$mail->SMTPSecure = "ssl";                 // metti prefisso per il server
+						$mail->Host       = "smtp.gmail.com";      // metti il tuo domino es(gmail) 
+						$mail->Port       = 465;   				// inserisci la porta smtp per il server DOMINIO
+						$mail->SMTPKeepAlive = true;
+						$mail->Mailer = "smtp";
+						$mail->Username   = "$email";      	// DOMINIO username
+						$mail->Password   = "$pass";        // DOMINIO password
+						$mail->AddAddress("civicsense2019@gmail.com");
+						$mail->AddAddress($row['email']);
+						$mail->SetFrom("$email");
+						$mail->Subject = "Segnalazione risolta";
+						$mail->Body = "Il problema presente in ".$row['via']." è stata risolta"; //Messaggio da inviare
+						$mail->Send();
+						header("location: http://localhost/CivicSense/Team/index.php");
+						} catch (phpmailerException $e) {
+							echo $e->errorMessage(); //Errori da PHPMailer
+						} catch (Exception $e) {
+							echo $e->getMessage(); //Errori da altrove
+						}					
+					}
 				}
-			
-			
-			
-			} 
-		}
-		else{
-			echo "Operazione non disponibile";
+			}
+			else{
+				echo "Operazione non disponibile";
+			}
 		}
 	}
 }
