@@ -134,25 +134,39 @@ class session
         }
     }
 
-    //These functions encrypt the data of the sessions,
-    //they use an encryption key from the database which is different for each session.
-    //We don't directly use that key in the encryption but we use it to make the key hash even more random.
-    private function encrypt($data, $key) {
-        $salt = 'cH!swe!retReGu7W6bEDRup7usuDUh9THeD2CHeGE*ewr4n39=E@rAsp7c-Ph@pH';
-        $key = substr(hash('sha256', $salt.$key.$salt), 0, 32);
-        $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-        $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $data, MCRYPT_MODE_ECB, $iv));
-        return $encrypted;
+    //FIXME use .env
+    private function encrypt($msg_data, $encryption_key){
+        //Store the cipher method
+        $ciphering = "AES-128-CTR"; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+
+        // Non-NULL Initialization Vector for encryption
+        $encryption_iv = 'cH!swe!retReGu7W6bEDRup7usuDUh9THeD2CHeGE*ewr4n39=E@rAsp7c-Ph@pH';
+
+        // Use openssl_encrypt() function to encrypt the data
+        $encryption = openssl_encrypt($msg_data, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $encryption;
     }
-    private function decrypt($data, $key) {
-        $salt = 'cH!swe!retReGu7W6bEDRup7usuDUh9THeD2CHeGE*ewr4n39=E@rAsp7c-Ph@pH';
-        $key = substr(hash('sha256', $salt.$key.$salt), 0, 32);
-        $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-        $decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, base64_decode($data), MCRYPT_MODE_ECB, $iv);
-        $decrypted = rtrim($decrypted, "\0");
-        return $decrypted;
+
+    private function decrypt($msg_data, $decryption_key){
+        //Store the cipher method
+        $ciphering = "AES-128-CTR"; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+
+        // Non-NULL Initialization Vector for encryption
+        $decryption_iv = 'cH!swe!retReGu7W6bEDRup7usuDUh9THeD2CHeGE*ewr4n39=E@rAsp7c-Ph@pH';
+    
+        // Use openssl_encrypt() function to encrypt the data
+        $decryption = openssl_decrypt($msg_data, $ciphering,
+            $decryption_key, $options, $decryption_iv);
+        return $decryption;
     }
+
+
 
 }
