@@ -244,7 +244,7 @@ class SMTP
      */
     protected $last_reply = '';
 
-    /**
+    /*
      * Output debugging info via a user-selected method.
      *
      * @param string $str   Debug string to output
@@ -252,9 +252,10 @@ class SMTP
      *
      * @see SMTP::$Debugoutput
      * @see SMTP::$do_debug
-     */
+*/
     protected function edebug($str, $level = 0)
     {
+        /*
         if ($level > $this->do_debug) {
             return;
         }
@@ -300,8 +301,10 @@ class SMTP
                     )
                 ),
                 "\n";
-        }
+        }*/
+        return;
     }
+
 
     /**
      * Connect to an SMTP server.
@@ -1175,21 +1178,12 @@ class SMTP
             $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
         set_error_handler([$this, 'errorHandler']);
-        $result = $this->fwrite_stream($this->smtp_conn, $data);
+        $result = $this->fwrite($this->smtp_conn, $data);
         restore_error_handler();
 
         return $result;
     }
 
-    private function fwrite_stream($fp, $string) {
-        for ($written = 0; $written < strlen($string); $written += $fwrite) {
-            $fwrite = fwrite($fp, substr($string, $written));
-            if ($fwrite === false) {
-                return $written;
-            }
-        }
-        return $written;
-    }
 
     /**
      * Get the latest error.
