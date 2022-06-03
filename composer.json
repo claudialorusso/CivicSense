@@ -3,7 +3,6 @@
         "phpmailer/phpmailer": "^6.6",
       "ext-pdo": "*",
       "ext-mysqli": "*",
-        "vlucas/phpdotenv": "^5.4",
-        "twbs/bootstrap": "^5.1"
+        "vlucas/phpdotenv": "^5.4"
     }
 }

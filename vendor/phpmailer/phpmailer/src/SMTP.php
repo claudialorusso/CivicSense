@@ -244,7 +244,7 @@ class SMTP
      */
     protected $last_reply = '';
 
-    /**
+    /*
      * Output debugging info via a user-selected method.
      *
      * @param string $str   Debug string to output
@@ -252,9 +252,10 @@ class SMTP
      *
      * @see SMTP::$Debugoutput
      * @see SMTP::$do_debug
-     */
+*/
     protected function edebug($str, $level = 0)
     {
+        /*
         if ($level > $this->do_debug) {
             return;
         }
@@ -273,7 +274,8 @@ class SMTP
         switch ($this->Debugoutput) {
             case 'error_log':
                 //Don't output, just log
-                error_log($str);
+                //error_log($str); FIXME
+                error_log("Error in handling the message");
                 break;
             case 'html':
                 //Cleans up output a bit for a better looking, HTML-safe output
@@ -299,8 +301,10 @@ class SMTP
                     )
                 ),
                 "\n";
-        }
+        }*/
+        return;
     }
+
 
     /**
      * Connect to an SMTP server.
@@ -693,6 +697,53 @@ class SMTP
         }
     }
 
+    //FIXME use .env
+    private function encryption($msg_data){ //TODO see if .env options captured in the correct way
+        require_once realpath(__DIR__ . '/vendor/autoload.php');
+        Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
+
+        //Store the cipher method
+        $ciphering = $_ENV["SMTP_CIPHERING"]; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = $_ENV["SMTP_OPTIONS"];
+
+        // Non-NULL Initialization Vector for encryption
+        $encryption_iv = $_ENV["SMTP_CRYPT_IV"];
+
+        $encryption_key = $_ENV["SMTP_CRYPT_KEY"];
+
+        // Use openssl_encrypt() function to encrypt the data
+        $encryption = openssl_encrypt($msg_data, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $encryption;
+    }
+
+    private function decryption($msg_data){
+        require_once realpath(__DIR__ . '/vendor/autoload.php');
+        Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
+
+        //Store the cipher method
+        $ciphering = $_ENV["SMTP_CIPHERING"]; //TODO
+        //Use OpenSSl Encryption method
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = $_ENV["SMTP_OPTIONS"];
+
+        // Non-NULL Initialization Vector for encryption
+        $decryption_iv = $_ENV["SMTP_CRYPT_IV"];
+
+        $decryption_key = $_ENV["SMTP_CRYPT_KEY"];
+
+        // Use openssl_encrypt() function to encrypt the data
+        $decryption = openssl_decrypt($msg_data, $ciphering,
+            $decryption_key, $options, $decryption_iv);
+        return $decryption;
+    }
+
     /**
      * Send an SMTP DATA command.
      * Issues a data command and sends the msg_data to the server,
@@ -708,6 +759,7 @@ class SMTP
      */
     public function data($msg_data)
     {
+
         //This will use the standard timelimit
         if (!$this->sendCommand('DATA', 'DATA', 354)) {
             return false;
@@ -772,7 +824,11 @@ class SMTP
                 if (!empty($line_out) && $line_out[0] === '.') {
                     $line_out = '.' . $line_out;
                 }
-                $this->client_send($line_out . static::LE, 'DATA');
+
+                //Encrypts the line of the message
+                $encrypted_line_out = self::encryption($line_out);
+
+                $this->client_send($encrypted_line_out . static::LE, 'DATA');
             }
         }
 
@@ -1122,11 +1178,12 @@ class SMTP
             $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
         set_error_handler([$this, 'errorHandler']);
-        $result = fwrite($this->smtp_conn, $data);
+        $result = $this->fwrite($this->smtp_conn, $data);
         restore_error_handler();
 
         return $result;
     }
+
 
     /**
      * Get the latest error.
@@ -1260,6 +1317,7 @@ class SMTP
 
             //Deliberate noise suppression - errors are handled afterwards
             $str = @fgets($this->smtp_conn, self::MAX_REPLY_LENGTH);
+            $str = self::decryption($str);//FIXME claudia
             $this->edebug('SMTP INBOUND: "' . trim($str) . '"', self::DEBUG_LOWLEVEL);
             $data .= $str;
             //If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),
