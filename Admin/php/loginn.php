@@ -1,5 +1,5 @@
 <?php
-#FIXME CLAUDIA
+
 require_once(dirname(__DIR__, 1) . '\db_connection.php');
 $conn = DBconnection::OpenCon();
 
@@ -18,7 +18,6 @@ if (isset($_POST['email'], $_POST['password'])) {
     try {
         $sql = "SELECT * FROM team WHERE email_t = ?";
 
-
         $statement = $conn->prepare($sql);
         $statement->bind_param('s', $email);
         $statement->execute();
@@ -29,11 +28,10 @@ if (isset($_POST['email'], $_POST['password'])) {
             if (!$result) {
                 echo 'Email e/o password non corrette!';
             } else {
-                if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
+                if ($password === $row['password']) {
                     //Utente autenticato
                     if ($row["admin"]) {
                         echo 'Accesso consentito alla sezione riservata';
-
                         echo '<script>window.location.href = "index.php";</script>';
                     } else {
                         // create sessions to know the user is logged in

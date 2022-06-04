@@ -9,9 +9,6 @@ $session->start_session('_s', false);
 //adatto a tutti i domini (GMAIL,LIBERO.HOTMAIL)
 //classi per l'invio dell'email (PHPMailer 5.2)
 
-
-require('phpmailer/class.phpmailer.php');
-include('phpmailer/class.smtp.php');
 require_once (dirname (__DIR__,1).'\db_connection.php');
 $conn = DBconnection::OpenCon();
 

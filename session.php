@@ -14,7 +14,7 @@ class session
     }
     //This function will be called every time you want to start a new session, use it instead of session_start()
     function start_session($session_name, $secure) {
-        // Make sure the session cookie is not accessible via javascript.
+        /*// Make sure the session cookie is not accessible via javascript.
         $httponly = true;
 
         // Hash algorithm to use for the session. (use hash_algos() to get a list of available hashes.)
@@ -47,7 +47,7 @@ class session
         $session->start_session('_s', false);
         // This line regenerates the session and delete the old one.
         // It also generates a new encryption key in the database.
-        session_regenerate_id(true);
+        session_regenerate_id(true);*/
     }
 
     function open() {
