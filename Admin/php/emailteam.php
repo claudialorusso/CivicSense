@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
         $resultC = mysqli_query($conn, "SELECT * FROM segnalazioni WHERE gravita IS NOT NULL AND team IS NULL");
         if ($resultC) {
             $row = mysqli_fetch_assoc($resultC);
-            if ($id == $row['id']) {
+            if ($row && $id == $row['id']) {
                 $query = ("UPDATE segnalazioni SET team = '$team', stato = 'In attesa' WHERE id = ? ");
 
                 $statement = $conn->prepare($query);
