@@ -77,10 +77,12 @@ $lat = (isset($_POST['lat'])) ? $_POST['lat'] : null;
 $long = (isset($_POST['long'])) ? $_POST['long'] : null;
 $tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : null;
 
-$sql = "INSERT INTO segnalazioni (datainv, orainv, via, descrizione, foto, email, tipo, latitudine, longitudine) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?) ";
+$stato = "In attesa";
+
+$sql = 'INSERT INTO segnalazioni (datainv, orainv, via, descrizione, foto, email, tipo, latitudine, longitudine, stato) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?) ';
 
 $statement = $conn->prepare($sql);
-$statement->bind_param('ssssssiss', $data, $ora, $via, $descr, $foto, $email, $tipo, $lat, $long);
+$statement->bind_param('ssssssisss', $data, $ora, $via, $descr, $foto, $email, $tipo, $lat, $long, $stato);
 $result = $statement->execute();
 
 if ($result) {

@@ -96,12 +96,12 @@ if (isset($_POST['email'], $_POST['password'])) {
 
         $statement = $conn->prepare($sql);
         $statement->bind_param('s', $email);
-        $statement->execute();
+        $res_ex = $statement->execute();
 
         $result = $statement->get_result();
         if ($result->num_rows === 0) exit ('Email e/o password non corrette!');
         while ($row = $result->fetch_assoc()) {
-            if (!$result) {
+            if (!$res_ex) {
                 echo 'Email e/o password non corrette!';
             } else {
                 if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
@@ -120,7 +120,12 @@ if (isset($_POST['email'], $_POST['password'])) {
 
                         #$_SESSION['something'] = 'A value.';
                         #echo $_SESSION['something'];
+
                         $_SESSION['user_id'] = $row['ID'];
+                        $_SESSION['email'] = $email;
+                        $_SESSION['pass'] = $password;
+                        $_SESSION['idT'] = $row['codice'];
+
                         echo 'Accesso consentito alla area riservata (TEAM)';
                         header("location: http://localhost//CivicSense/Team/index.php");
                     }
