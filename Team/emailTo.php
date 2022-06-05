@@ -24,17 +24,17 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
 
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $idS);
-    $statement->execute();
+    $res_ex = $statement->execute();
     $result = $statement->get_result();
 
     if ($result->num_rows === 0) exit ('Inserire un ID valido');
     while ($row = $result->fetch_assoc()) {
-        if (!$result) {
+        if (!$res_ex) {
             echo 'Inserire un ID valido!';
         } else {
             //da team a ente e utente
             $row = $result->fetch_assoc();
-            if ($row['stato'] == "In attesa" && $stato == "In risoluzione") { //confronta stato attuale e quello da modificare
+            if ($row && $row['stato'] == "In attesa" && $stato == "In risoluzione") { //confronta stato attuale e quello da modificare
                 $sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
                 $statement = $conn->prepare($sql);

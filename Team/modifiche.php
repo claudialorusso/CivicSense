@@ -14,7 +14,9 @@ $conn = DBconnection::OpenCon();
 
 if (isset($_POST['id'])&& isset($_POST['stato'])) {
 	$idS = $_POST['id'];
+
 	$stato = $_POST['stato'];
+
 	$email=$_SESSION['email'];
 	$pass=$_SESSION['pass'];
 	
@@ -23,25 +25,27 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $idS);
 
-	$statement->execute();
+	$res_ex = $statement->execute();
 	$result = $statement->get_result();
+
 	if ($result->num_rows === 0) exit ('Errore nel recupero dello ID ');
 	while ($row = $result->fetch_assoc()) {
-		if($result){
+		if($res_ex){
 			//da team a ente e utente
-			$row = $result->fetch_assoc();
-			if($row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
-				$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
+			if($row && $row['stato']=="In attesa" && $stato=="In risoluzione"){ //confronta stato attuale e quello da modificare
+				$sql1 = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
-				$statement = $conn->prepare($sql);
-				$statement->bind_param('i', $idS);
+                $conn1 = DBconnection::OpenCon();
+				$statement1 = $conn1->prepare($sql1);
+				$statement1->bind_param('i', $idS);
 
-				$statement->execute();
-				$result1 = $statement->get_result();
-                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
-                while ($row = $result1->fetch_assoc()) {
-					if($result1){
+				$res_ex = $statement1->execute();
+				$result1 = $statement1->get_result();
+                if (empty($result1)) exit ('Errore nel recupero dello ID ');
+                while ($row1 = $result1->fetch_assoc()) {
+                    mysqli_ping($conn);
+					if($res_ex){
 						echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 						$mail = new PHPMailer(true);
 			
@@ -68,21 +72,22 @@ if (isset($_POST['id'])&& isset($_POST['stato'])) {
 							echo $e->getMessage(); //Errori da altrove
 						}
 					}
+
 				}
-			}
-			//da team a ente e utente
-			else if($row['stato']=="In risoluzione" && $stato=="Risolto"){
-				$sql = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
+			} else if($row && $row['stato']=="In risoluzione" && $stato=="Risolto"){//da team a ente e utente
+				$sql1 = "UPDATE segnalazioni SET stato = '$stato' WHERE id = ?"; //esegui l'aggiornamento
 
+                $conn1 = DBconnection::OpenCon();
+				$statement1 = $conn1->prepare($sql1);
 
-				$statement = $conn->prepare($sql);
-				$statement->bind_param('i', $idS);
+				$statement1->bind_param('i', $idS);
 
-				$statement->execute();
-                $result1 = $statement->get_result();
-                if ($result1->num_rows === 0) exit ('Errore nel recupero dello ID ');
-                while ($row = $result1->fetch_assoc()) {
-					if($result1){
+				$res_ex = $statement1->execute();
+                $result1 = $statement1->get_result();
+                if (!empty($result1)) exit ('Errore nel recupero dello ID ');
+                while ($row1 = $result1->fetch_assoc()) {
+                    mysqli_ping($conn);
+					if($res_ex){
 						echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
 						$mail = new PHPMailer(true);
 			

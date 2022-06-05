@@ -1,5 +1,5 @@
 <?php
-
+#FIXME CLAUDIA
 require_once(dirname(__DIR__, 1) . '\db_connection.php');
 $conn = DBconnection::OpenCon();
 
@@ -18,25 +18,37 @@ if (isset($_POST['email'], $_POST['password'])) {
     try {
         $sql = "SELECT * FROM team WHERE email_t = ?";
 
+
         $statement = $conn->prepare($sql);
         $statement->bind_param('s', $email);
-        $statement->execute();
+        $res_ex = $statement->execute();
 
         $result = $statement->get_result();
-        if($result->num_rows === 0) exit ('Email e/o password non corrette!');
-        while($row = $result->fetch_assoc()){
-            if (!$result) {
+        if ($result->num_rows === 0) exit ('Email e/o password non corrette!');
+        while ($row = $result->fetch_assoc()) {
+            if (!$res_ex) {
                 echo 'Email e/o password non corrette!';
             } else {
-                if ($password === $row['password']) {
+                if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
                     //Utente autenticato
                     if ($row["admin"]) {
                         echo 'Accesso consentito alla sezione riservata';
+
                         echo '<script>window.location.href = "index.php";</script>';
                     } else {
                         // create sessions to know the user is logged in
 
+                        require_once(dirname(__DIR__, 1) . '\session.php');
+                        $session = new session();
+                        // Set to true if using https
+                        $session->start_session('_s', false);
+
+                        #$_SESSION['something'] = 'A value.';
+                        #echo $_SESSION['something'];
                         $_SESSION['user_id'] = $row['ID'];
+                        $_SESSION['email'] = $email;
+                        $_SESSION['pass'] = $password;
+                        $_SESSION['idT'] = $row['codice'];
                         echo 'Accesso consentito alla area riservata (TEAM)';
                         header("location: http://localhost//CivicSense/Team/index.php");
                     }
