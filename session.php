@@ -53,6 +53,13 @@ class session
         session_regenerate_id(true);
     }
 
+    function assign_session_vars($id, $email, $password, $codice){
+        $_SESSION['user_id'] = $id;
+        $_SESSION['email'] = $email;
+        $_SESSION['pass'] = $password;
+        $_SESSION['idT'] = $codice;
+    }
+
     function open() {
 
         require_once $this->root . '\db_connection.php'; //$_SERVER['DOCUMENT_ROOT']."db_connection.php";
