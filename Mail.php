@@ -1,5 +1,8 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
+require_once realpath(__DIR__ . '/vendor/autoload.php');
+
 
 class Mail extends PHPMailer
 {
@@ -12,7 +15,7 @@ class Mail extends PHPMailer
         $dotenv->safeLoad();
 
         $this->SMTPAuth   = true;                  // sblocchi SMTP
-        $this->SMTPSecure = "ssl";                 // metti prefisso per il server
+        $this->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;// metti prefisso per il server
         $this->Host       = $_ENV["SMTP_HOST"];    // metti il tuo domino es(gmail)
         $this->Port       = $_ENV["SMTP_PORT"];    // inserisci la porta smtp per il server DOMINIO
         $this->SMTPKeepAlive = true;

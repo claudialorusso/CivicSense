@@ -271,7 +271,7 @@ $sql = "SELECT * FROM segnalazioni where tipo = '1' ";
                         $resultC = mysqli_query($conn, "SELECT * FROM segnalazioni WHERE tipo = '1'");
                         if ($resultC) {
                             $row = mysqli_fetch_assoc($resultC);
-                            if ($idt == $row['id']) {
+                            if ($row && $idt == $row['id']) {
                                 $query = "UPDATE segnalazioni SET gravita = '$grav' WHERE id = ?";
                                 $statement = $conn->prepare($query);
                                 $statement->bind_param('i', $idt);

@@ -826,9 +826,9 @@ class SMTP
                 }
 
                 //Encrypts the line of the message
-                $encrypted_line_out = self::encryption($line_out);
+                //$encrypted_line_out = self::encryption($line_out);
 
-                $this->client_send($encrypted_line_out . static::LE, 'DATA');
+                $this->client_send($line_out . static::LE, 'DATA');
             }
         }
 
@@ -1317,7 +1317,7 @@ class SMTP
 
             //Deliberate noise suppression - errors are handled afterwards
             $str = @fgets($this->smtp_conn, self::MAX_REPLY_LENGTH);
-            $str = self::decryption($str);//FIXME claudia
+            //$str = self::decryption($str);//FIXME claudia
             $this->edebug('SMTP INBOUND: "' . trim($str) . '"', self::DEBUG_LOWLEVEL);
             $data .= $str;
             //If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),

@@ -36,8 +36,11 @@ class DBconnection{
 
     public static function CloseCon()
     {
-        self::$conn->close();
-        self::$conn = null;
+        if (self::$conn){
+            self::$conn->close();
+            self::$conn = null;
+        }
+
     }
 
     private static function setUpCredentials () {

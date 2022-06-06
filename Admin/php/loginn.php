@@ -21,12 +21,12 @@ if (isset($_POST['email'], $_POST['password'])) {
 
         $statement = $conn->prepare($sql);
         $statement->bind_param('s', $email);
-        $statement->execute();
+        $res_ex = $statement->execute();
 
         $result = $statement->get_result();
-        if($result->num_rows === 0) exit ('Email e/o password non corrette!');
-        while($row = $result->fetch_assoc()){
-            if (!$result) {
+        if ($result->num_rows === 0) exit ('Email e/o password non corrette!');
+        while ($row = $result->fetch_assoc()) {
+            if (!$res_ex) {
                 echo 'Email e/o password non corrette!';
             } else {
                 if ($password === $row['password']) { //password_verify(($password === $result['PASSWORD'])) TODO use hash
@@ -38,7 +38,14 @@ if (isset($_POST['email'], $_POST['password'])) {
                     } else {
                         // create sessions to know the user is logged in
 
-                        $_SESSION['user_id'] = $row['ID'];
+                        require_once(dirname(__DIR__, 1) . '\session.php');
+                        $session = new session();
+                        // Set to true if using https
+                        $session->start_session('_s', false);
+
+                        #$_SESSION['something'] = 'A value.';
+                        #echo $_SESSION['something'];
+                        $session->assign_session_vars($row['ID'],$email,$password,$row['codice']);
                         echo 'Accesso consentito alla area riservata (TEAM)';
                         header("location: http://localhost//CivicSense/Team/index.php");
                     }
