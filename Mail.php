@@ -1,5 +1,8 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
+require_once realpath(__DIR__ . '/vendor/autoload.php');
+
 
 class Mail extends PHPMailer
 {
