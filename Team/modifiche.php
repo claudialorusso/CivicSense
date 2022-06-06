@@ -1,6 +1,6 @@
 <?php
 // create sessions to know the user is logged in
-
+require_once(dirname(__DIR__, 1) . '\Mail.php');
 require_once(dirname(__DIR__, 1) . '\session.php');
 $session = new session();
 // Set to true if using https
@@ -45,27 +45,15 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
 
                 if ($res_ex) {
                     echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                    $mail = new PHPMailer(true);
+
 
                     try {
-                        $mail->SMTPAuth = true;                  // sblocchi SMTP
-                        $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-                        $mail->Host = "smtp.gmail.com";      // metti il tuo domino es(gmail)
-                        $mail->Port = 465;                // inserisci la porta smtp per il server DOMINIO
-                        $mail->SMTPKeepAlive = true;
-                        $mail->Mailer = "smtp";
-                        $mail->Username = "$email";        // DOMINIO username
-                        $mail->Password = "$pass";        // DOMINIO password
-                        $mail->AddAddress("civicsense2019@gmail.com");
-                        $mail->AddAddress($row['email']);
-                        $mail->SetFrom("$email");
-                        $mail->Subject = 'Nuova Segnalazione';
-                        $mail->Body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
-                        $mail->Send();
+                        $subject = 'Nuova Segnalazione';
+                        $body = "La segnalazione è arrivata ed stiamo lavorando per risolverla"; //Messaggio da inviare
+                        $recipients = ["civicsense2019@gmail.com", $row['email']];
                         echo "Message Sent OK";
+                        $mail = new Mail($subject, $body, $recipients, true);
                         header("location: http://localhost/CivicSense/Team/index.php");
-                    } catch (phpmailerException $e) {
-                        echo $e->errorMessage(); //Errori da PHPMailer
                     } catch (Exception $e) {
                         echo $e->getMessage(); //Errori da altrove
                     }
@@ -80,30 +68,15 @@ if (isset($_POST['id']) && isset($_POST['stato'])) {
                 $statement1->bind_param('i', $idS);
 
                 $res_ex = $statement1->execute();
-                $result1 = $statement1->get_result();
-
                 if ($res_ex) {
                     echo("<br><b><br><p> <center> <font color=black font face='Courier'> Aggiornamento avvenuto correttamente. Ricarica la pagina per aggiornare la tabella.</b></center></p><br><br> ");
-                    $mail = new PHPMailer(true);
-
                     try {
-                        $mail->SMTPAuth = true;                  // sblocchi SMTP
-                        $mail->SMTPSecure = "ssl";                 // metti prefisso per il server
-                        $mail->Host = "smtp.gmail.com";      // metti il tuo domino es(gmail)
-                        $mail->Port = 465;                // inserisci la porta smtp per il server DOMINIO
-                        $mail->SMTPKeepAlive = true;
-                        $mail->Mailer = "smtp";
-                        $mail->Username = "$email";        // DOMINIO username
-                        $mail->Password = "$pass";        // DOMINIO password
-                        $mail->AddAddress("civicsense2019@gmail.com");
-                        $mail->AddAddress($row['email']);
-                        $mail->SetFrom("$email");
-                        $mail->Subject = "Segnalazione risolta";
-                        $mail->Body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
-                        $mail->Send();
+                        $subject = "Segnalazione risolta";
+                        $body = "Il problema presente in " . $row['via'] . " è stata risolta"; //Messaggio da inviare
+                        $recipients = ["civicsense2019@gmail.com", $row['email']];
+                        echo "Message Sent OK";
+                        $mail = new Mail($subject, $body, $recipients, true);
                         header("location: http://localhost/CivicSense/Team/index.php");
-                    } catch (phpmailerException $e) {
-                        echo $e->errorMessage(); //Errori da PHPMailer
                     } catch (Exception $e) {
                         echo $e->getMessage(); //Errori da altrove
                     }
