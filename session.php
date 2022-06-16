@@ -1,5 +1,7 @@
 <?php
 
+
+
 class session
 {
 
@@ -17,6 +19,10 @@ class session
         $this->root= dirname(__FILE__);//$_SERVER['DOCUMENT_ROOT'];
         // This line prevents unexpected effects when using objects as save handlers.
         register_shutdown_function('session_write_close');
+        require_once realpath(__DIR__ . '/vendor/autoload.php');
+        Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
     }
     //This function will be called every time you want to start a new session, use it instead of session_start()
     function start_session($session_name, $secure) {
@@ -24,7 +30,7 @@ class session
         $httponly = true;
 
         // Hash algorithm to use for the session. (use hash_algos() to get a list of available hashes.)
-        $session_hash = 'sha512';
+        $session_hash = $_ENV["SESSION_HASH"];
 
         // Check if hash is available
         if (in_array($session_hash, hash_algos())) {
@@ -75,7 +81,7 @@ class session
     //This function will be called by PHP when we try to access a session for example when we use echo $_SESSION['something'];. Because there might be many calls to this function on a single page, we take advantage of prepared statements, not only for security but for performance also. We only prepare the statement once then we can execute it many times.
     //We also decrypt the session data that is encrypted in the database. We are using 256-bit AES encryption in our sessions.
     function read($id) {
-        $data = ""; //FIXME CLAUDIA
+        $data = "";
         mysqli_ping($this->db_conn);
         $this->read_stmt = $this->db_conn->prepare("SELECT data FROM session WHERE id = ? LIMIT 1");
         $this->read_stmt->bind_param('s', $id);
@@ -126,7 +132,7 @@ class session
 
     //This function is used to get the unique key for encryption from the sessions table. If there is no session it just returns a new random key for encryption.
     private function getkey($id) {
-        $key = ""; //FIXME CLAUDIA
+        $key = "";
         $this->open();
         mysqli_ping($this->db_conn);
         $this->key_stmt = $this->db_conn->prepare("SELECT session_key FROM session WHERE id = ? LIMIT 1");
@@ -146,13 +152,13 @@ class session
     //FIXME use .env
     private function encrypt($msg_data, $encryption_key){
         //Store the cipher method
-        $ciphering = "AES-128-CTR"; //TODO
+        $ciphering = $_ENV["CIPHERING"];
         //Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
-        $options = 0;
+        $options = $_ENV["CIPH_OPTIONS"];
 
         // Non-NULL Initialization Vector for encryption
-        $encryption_iv = 'cH!swe!retReGu7W';
+        $encryption_iv = $_ENV["INIT_VECTOR_ENCRYPTION"];
 
         // Use openssl_encrypt() function to encrypt the data
         $encryption = openssl_encrypt($msg_data, $ciphering,
@@ -162,13 +168,13 @@ class session
 
     private function decrypt($msg_data, $decryption_key){
         //Store the cipher method
-        $ciphering = "AES-128-CTR"; //TODO
+        $ciphering = $_ENV["CIPHERING"];
         //Use OpenSSl Encryption method
         $iv_length = openssl_cipher_iv_length($ciphering);
-        $options = 0;
+        $options = $_ENV["CIPH_OPTIONS"];
 
         // Non-NULL Initialization Vector for encryption
-        $decryption_iv = 'cH!swe!retReGu7W';
+        $decryption_iv = $_ENV["INIT_VECTOR_ENCRYPTION"];
     
         // Use openssl_encrypt() function to encrypt the data
         $decryption = openssl_decrypt($msg_data, $ciphering,
