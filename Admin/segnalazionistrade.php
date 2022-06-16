@@ -158,7 +158,7 @@
             </head>
             <body>
 
-            <div id="map"></div>
+
 
             <script>
                 function initMap() {
@@ -198,9 +198,7 @@ $sql = "SELECT * FROM segnalazioni where tipo = '3' ";
 
             </script>
 
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7GIu4drL85xcaTdq8hAtRzVWjbKxs3NQ&callback=initMap">
-            </script>
+            <img src="img\disneyland.jpg">
 
             <!-- FINE MAPPA -->
             <br><br><br>

@@ -160,8 +160,6 @@
             </head>
             <body>
 
-            <div id="map"></div>
-
             <script>
                 function initMap() {
                     var location = new google.maps.LatLng(40.382003, 17.367155);
@@ -200,9 +198,8 @@ $sql = "SELECT * FROM segnalazioni where tipo = '1' ";
 
             </script>
 
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7GIu4drL85xcaTdq8hAtRzVWjbKxs3NQ&callback=initMap">
-            </script>
+            <img src="img\disneyland.jpg">
+
 
 
             <!-- FINE MAPPA -->
