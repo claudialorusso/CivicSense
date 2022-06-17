@@ -9,7 +9,7 @@ The system allows the citizen to notify failures, problems, malfunctions and, in
 Software vulnerabilities represent one of the main weaknesses of an Information Technology system. Accordingly, security and privacy play a major role in preserving the confidentiality, integrity and availability of personal data.
 
 Security should be embedded in software applications while privacy must be considered throughout all the software life cycle phases.
-</i>General Data Protection Regulation</i> (<b>GDPR</b>) enforces protection of personal data while highlighting the concept of “Privacy by Design” – which is mostly based on the “Security by Design” principle.
+<i>General Data Protection Regulation</i> (<b>GDPR</b>) enforces protection of personal data while highlighting the concept of “Privacy by Design” – which is mostly based on the “Security by Design” principle.
 Unfortunately, there are some limitations to take in account:
 <ul>
 <li>Privacy is subjective,</li>
