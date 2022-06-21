@@ -199,7 +199,7 @@
 
             </script>
 
-            <img src="img\disneyland.jpg">
+            <img src="img\gta.jpg">
 
 
             <!-- FINE MAPPA -->
