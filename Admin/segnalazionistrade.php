@@ -198,7 +198,7 @@ $sql = "SELECT * FROM segnalazioni where tipo = '3' ";
 
             </script>
 
-            <img src="img\disneyland.jpg">
+            <img src="img\gta.jpg">
 
             <!-- FINE MAPPA -->
             <br><br><br>

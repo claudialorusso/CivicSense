@@ -105,7 +105,7 @@ $session->start_session('_s', false); ?>
         </style>
 
 
-        <div id="map"></div>
+        <img src="..\Admin\img\gta.jpg">
 
         <script>
             function initMap() {
