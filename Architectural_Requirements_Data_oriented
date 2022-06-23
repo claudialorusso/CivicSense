@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-06-23T20:20:33.514Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="A0vbwxTNXAfY8LtUTHBV" version="20.0.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-06-23T20:25:06.854Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="J7H5rdncs7818MQF0xhn" version="20.0.3" type="github">
   <diagram name="Page-1" id="a7904f86-f2b4-8e86-fa97-74104820619b">
     <mxGraphModel dx="2285" dy="628" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -72,19 +72,6 @@
         </mxCell>
         <mxCell id="jcpoipscnzF9ppGAXQ_y-6" value="Cookie&lt;br&gt;Manager" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="-40" y="370" width="80" height="45" as="geometry" />
-        </mxCell>
-        <mxCell id="L2hWldvvp4etObxsRfQe-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;startArrow=none;startFill=0;endArrow=classic;endFill=1;startSize=6;endSize=6;" parent="1" source="jcpoipscnzF9ppGAXQ_y-12" target="jcpoipscnzF9ppGAXQ_y-15" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="440" y="550" />
-              <mxPoint x="290" y="550" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="L2hWldvvp4etObxsRfQe-89" value="Shared Data Separation" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="L2hWldvvp4etObxsRfQe-87" vertex="1" connectable="0">
-          <mxGeometry x="0.361" y="1" relative="1" as="geometry">
-            <mxPoint x="30" as="offset" />
-          </mxGeometry>
         </mxCell>
         <mxCell id="jcpoipscnzF9ppGAXQ_y-12" value="Encryption&lt;br&gt;w/ User-Managed&lt;br&gt;Keys" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="287.5" width="110" height="65" as="geometry" />
