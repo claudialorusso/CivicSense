@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-06-24T16:29:55.421Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="7jKo1AEP-_Nso8ApMPPQ" version="20.0.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-06-24T17:05:48.869Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="-szliDq1JQQvHnT9rSvq" version="20.0.3" type="github">
   <diagram name="Page-1" id="a7904f86-f2b4-8e86-fa97-74104820619b">
     <mxGraphModel dx="2278" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -270,14 +270,14 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="610" y="710" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="590" y="320" />
-              <mxPoint x="590" y="700" />
+              <mxPoint x="560" y="320" />
+              <mxPoint x="560" y="700" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="9X1EjLFuXDSjQPyKfSPr-4" value="Send / Receive Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="9X1EjLFuXDSjQPyKfSPr-3">
+        <mxCell id="9X1EjLFuXDSjQPyKfSPr-4" value="Send / Receive Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" vertex="1" connectable="0" parent="9X1EjLFuXDSjQPyKfSPr-3">
           <mxGeometry x="-0.497" y="-1" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="1" y="104" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-17" value="Encryption&lt;br&gt;w/ User-Managed&lt;br&gt;Keys" style="html=1;" parent="1" vertex="1">
