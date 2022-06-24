@@ -6,7 +6,8 @@ $upload_path = 'jpeg/';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $img_name = $_FILES['image']['name']; //Ex. immagine.jpg
 
-    if (substr($img_name, -4) !== '.jpg') {
+    $img_extension = substr($img_name, -4);
+    if ( $img_extension === '.jpg' || $img_extension === 'jpeg') {
         $file_path = $upload_path . basename($img_name); //Ex. jpeg/immagine.jpg
         $email = $_POST['email'];
         $tipo = $_POST['tipo'];
@@ -33,32 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!$file_path) {
                 $err_message = "Percorso file non corretto";
             } else {
-                # I list all of the jpg files contained in "jpeg/"
-                $file_list = glob($upload_path . '*.jpg');
-                #array_push(@$file_list, glob($upload_path . '*.png'));
-                #checks whether the image is real or not
-                $real = false;
-                foreach ($file_list as $filename) {
-                    if (realpath($filename) == $file_path) {
-                        $real = true; #YAY! I founded the image! The path is valid!
-                        break;
-                    }
-                }
-                if ($real) {
-                    $base_filename = basename($file_path);
-                    move_uploaded_file($_FILES['image']['tmp_name'], "'$upload_path' . '$base_filename'");
+                $base_filename = basename($file_path);
+                move_uploaded_file($_FILES['image']['tmp_name'], "'$upload_path' . '$base_filename'");
 
-                    $sql = "INSERT INTO segnalazioni (datainv, orainv, via, descrizione, foto, email, tipo, latitudine, longitudine) VALUES (CURRENT_DATE,CURRENT_TIME, ?, ?, ?, ?, ?, ?, ?) ";
+                $sql = "INSERT INTO segnalazioni (datainv, orainv, via, descrizione, foto, email, tipo, latitudine, longitudine) VALUES (CURRENT_DATE,CURRENT_TIME, ?, ?, ?, ?, ?, ?, ?) ";
 
-                    $statement = $conn->prepare($sql);
-                    $statement->bind_param('ssssiss',  $via, $descr, $foto, $email, $tipo, $lat, $long);
-                    $result = $statement->execute();
+                $statement = $conn->prepare($sql);
+                $statement->bind_param('ssssiss',  $via, $descr, $foto, $email, $tipo, $lat, $long);
+                $result = $statement->execute();
 
-                    if ($result) {
-                        echo "Inserimento dei dati completato";
-                    } else {
-                        echo "Errore nell'inserimento dei dati";
-                    }
+                if ($result) {
+                    echo "Inserimento dei dati completato";
+                } else {
+                    echo "Errore nell'inserimento dei dati";
                 }
             }
         } catch (Exception $e) {
