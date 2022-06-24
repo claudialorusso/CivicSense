@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-06-24T17:13:06.374Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="GzH11sqUp19prBErF2hF" version="20.0.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-06-24T19:25:00.257Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="uWnfurTVx9PeTGlcaG4C" version="20.0.3" type="github">
   <diagram name="Page-1" id="a7904f86-f2b4-8e86-fa97-74104820619b">
     <mxGraphModel dx="2924" dy="954" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -247,7 +247,7 @@
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-13" value="GUI" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="220" y="310" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-14" value="&lt;span style=&quot;&quot;&gt;Strip&lt;br&gt;Invisible&lt;br&gt;Metadata&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-14" value="&lt;span style=&quot;&quot;&gt;Strip&lt;br&gt;Invisible&lt;br&gt;Metadata&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-40" y="345" width="80" height="45" as="geometry" />
         </mxCell>
         <mxCell id="Mfe_IFIFTbLFBOlwkidl-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;startArrow=classic;startFill=1;" parent="1" source="6uDWzqJ2uOxNHgXWT5JM-17" target="Mfe_IFIFTbLFBOlwkidl-8" edge="1">
@@ -294,7 +294,7 @@
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-20" value="User&lt;br&gt;Data&lt;br&gt;Confinement" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="320" y="430" width="80" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-21" value="Cookie Manager" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-21" value="Cookie Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-40" y="265" width="80" height="55" as="geometry" />
         </mxCell>
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FF0000;endArrow=none;endFill=0;" parent="1" source="6uDWzqJ2uOxNHgXWT5JM-24" edge="1">
