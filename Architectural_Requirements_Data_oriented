@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-06-25T11:03:22.338Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="JuvAPYc16SoxBoj4GoUT" version="20.0.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-06-25T11:04:42.834Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="gW4d1FRo49SIiPkn88vr" version="20.0.3" type="github">
   <diagram name="Page-1" id="a7904f86-f2b4-8e86-fa97-74104820619b">
-    <mxGraphModel dx="1937" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2309" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -277,7 +277,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-20" value="User&lt;br&gt;Data&lt;br&gt;Confinement" style="html=1;" parent="1" vertex="1">
+        <mxCell id="6uDWzqJ2uOxNHgXWT5JM-20" value="Personal &lt;br&gt;Data Store" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="320" y="430" width="80" height="50" as="geometry" />
         </mxCell>
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FF0000;endArrow=none;endFill=0;" parent="1" source="6uDWzqJ2uOxNHgXWT5JM-24" edge="1">
@@ -388,7 +388,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;strokeColor=#FF0000;" parent="1" vertex="1">
-          <mxGeometry x="-117" y="420" width="630" height="400" as="geometry" />
+          <mxGeometry x="-117" y="420" width="630" height="390" as="geometry" />
         </mxCell>
         <mxCell id="6uDWzqJ2uOxNHgXWT5JM-59" value="&lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;Separate&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;" parent="1" vertex="1">
           <mxGeometry x="-117" y="420" width="60" height="25" as="geometry" />
