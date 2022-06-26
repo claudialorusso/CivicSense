@@ -67,15 +67,15 @@
 require_once (dirname (__DIR__,1).'\db_connection.php');
 $conn = DBconnection::OpenCon();
 
-$data = (isset($_POST['data'])) ? $_POST['data'] : null;
-$ora = (isset($_POST['ora'])) ? $_POST['ora'] : null;
-$via = (isset($_POST['via'])) ? $_POST['via'] : null;
-$descr = (isset($_POST['descr'])) ? $_POST['descr'] : null;
+$data = (isset($_POST['data'])) ? $_POST['data'] :  date("Y-m-d");
+$ora = (isset($_POST['ora'])) ? $_POST['ora'] : time();
+$via = (isset($_POST['via'])) ? $_POST['via'] : "not specified";
+$descr = (isset($_POST['descr'])) ? $_POST['descr'] : "not specified";
 $foto = (isset($_POST['foto'])) ? $_POST['foto'] : null;
-$email = (isset($_POST['email'])) ? $_POST['email'] : null;
-$lat = (isset($_POST['lat'])) ? $_POST['lat'] : null;
-$long = (isset($_POST['long'])) ? $_POST['long'] : null;
-$tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : null;
+$email = (isset($_POST['email'])) ? $_POST['email']: "not specified";
+$lat = (isset($_POST['lat'])) ? $_POST['lat'] : "0";
+$long = (isset($_POST['long'])) ? $_POST['long'] : "0";
+$tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : -1;
 
 $stato = "In attesa";
 
